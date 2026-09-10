@@ -1,0 +1,103 @@
+<mxfile host="65bd71144e">
+    <diagram id="xrBnOVD_9Iq2O0lR0Op6" name="Page-1">
+        <mxGraphModel dx="388" dy="1632" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="24" style="edgeStyle=none;html=1;" parent="1" source="5" target="9" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="24" vertex="1" connectable="0">
+                    <mxGeometry x="0.0118" y="-1" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="5" value="Usuario" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="10" y="160" width="280" height="210" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="+id (Integer clave primaria auto increment)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="5" vertex="1">
+                    <mxGeometry y="30" width="280" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="+nombre_Usuario (Varchar) Non Null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="5" vertex="1">
+                    <mxGeometry y="60" width="280" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="+correo_usuario (Varchar) Non Null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="5" vertex="1">
+                    <mxGeometry y="90" width="280" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="+contrasena_Usuario (varchar) Non Null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="5" vertex="1">
+                    <mxGeometry y="120" width="280" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="&lt;font&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;+imagen_Usuario (&lt;/font&gt;&lt;span style=&quot;letter-spacing: -0.16px; background-color: rgb(255, 255, 255);&quot;&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot; face=&quot;Helvetica&quot;&gt;MediumBlob&lt;/font&gt;&lt;b style=&quot;color: light-dark(rgb(0, 0, 0), rgb(237, 237, 237)); font-family: &amp;quot;segoe sans variable&amp;quot;, roboto, helvetica, sans-serif;&quot;&gt;)&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="5" vertex="1">
+                    <mxGeometry y="150" width="280" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" value="+idioma (varchar)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="5" vertex="1">
+                    <mxGeometry y="180" width="280" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="Puntuación" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="410" y="175" width="300" height="240" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="+id_Mapa (Integer clave primaria clave foranea)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="9" vertex="1">
+                    <mxGeometry y="30" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="+id_Usuario (Integer&amp;nbsp;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;clave primaria clave foranea)&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="9" vertex="1">
+                    <mxGeometry y="60" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="17" value="+tiempo&amp;nbsp; &amp;nbsp;(Time) Non Null&amp;nbsp;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="9" vertex="1">
+                    <mxGeometry y="90" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="&lt;div&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;+aciertos&amp;nbsp; (integer) Non Null&lt;/font&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="9" vertex="1">
+                    <mxGeometry y="120" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="45" value="&lt;div&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;+fallos (integer) Non Null&lt;/font&gt;&lt;/div&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="9" vertex="1">
+                    <mxGeometry y="150" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="+puntuación (Integer) Non Null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="9" vertex="1">
+                    <mxGeometry y="180" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="46" value="+rango (char) Non Null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="9" vertex="1">
+                    <mxGeometry y="210" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" style="edgeStyle=none;html=1;" parent="1" source="13" target="9" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="23" vertex="1" connectable="0">
+                    <mxGeometry x="-0.0884" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="36" style="edgeStyle=none;html=1;" parent="1" source="13" target="31" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="37" value="1:N" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="36" vertex="1" connectable="0">
+                    <mxGeometry x="-0.0889" y="3" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="13" value="Mapa" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry y="-60" width="240" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="+id (Integer Clave primaria auto increment)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="13" vertex="1">
+                    <mxGeometry y="30" width="240" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="27" value="+tipo_Mapa (Varchar) Non Null" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="13" vertex="1">
+                    <mxGeometry y="60" width="240" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="28" value="&lt;font&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot;&gt;+imagen_Mapa (&lt;/font&gt;&lt;span style=&quot;letter-spacing: -0.16px; background-color: rgb(255, 255, 255);&quot;&gt;&lt;font style=&quot;color: rgb(0, 0, 0);&quot; face=&quot;Helvetica&quot;&gt;MediumBlob&lt;/font&gt;&lt;b style=&quot;color: light-dark(rgb(0, 0, 0), rgb(237, 237, 237)); font-family: &amp;quot;segoe sans variable&amp;quot;, roboto, helvetica, sans-serif;&quot;&gt;)&lt;/b&gt;&lt;/span&gt;&lt;/font&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="13" vertex="1">
+                    <mxGeometry y="90" width="240" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="31" value="Nombre_Mapa" style="swimlane;fontStyle=0;childLayout=stackLayout;horizontal=1;startSize=30;horizontalStack=0;resizeParent=1;resizeParentMax=0;resizeLast=0;collapsible=1;marginBottom=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="425" y="-160" width="300" height="120" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" value="&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;+id_Mapa (Integer Clave primaria clave foranea)&lt;/span&gt;" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="31" vertex="1">
+                    <mxGeometry y="30" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="+nombre_Mapa (Varchar clave primaria)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="31" vertex="1">
+                    <mxGeometry y="60" width="300" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="33" value="+Idioma (Varchar)" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;spacingLeft=4;spacingRight=4;overflow=hidden;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;rotatable=0;whiteSpace=wrap;html=1;" parent="31" vertex="1">
+                    <mxGeometry y="90" width="300" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
