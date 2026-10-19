@@ -10,6 +10,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Usuario {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="id")
@@ -42,6 +43,23 @@ public class Usuario {
     @OneToMany(mappedBy = "usuarioPuntuacion", cascade = CascadeType.ALL)
     private List<Puntuacion> puntuaciones = new ArrayList<>();
 
+    public  Usuario(String nombreUsuario,String correoUsuario, String contrasenaUsuario, String idioma,byte[] imagenUsuario, boolean modoOscuro){
+        this.nombreUsuario=nombreUsuario;
+        this.correoUsuario=correoUsuario;
+        this.contrasenaUsuario=contrasenaUsuario;
+        this.idioma=idioma;
+        this.imagenUsuario=imagenUsuario;
+        this.modoOscuro=modoOscuro;
+    }
+
+    public  Usuario(Integer idUsuario,String nombreUsuario,String correoUsuario, String contrasenaUsuario, String idioma,byte[] imagenUsuario, boolean modoOscuro){
+        this.nombreUsuario=nombreUsuario;
+        this.correoUsuario=correoUsuario;
+        this.contrasenaUsuario=contrasenaUsuario;
+        this.idioma=idioma;
+        this.imagenUsuario=imagenUsuario;
+        this.modoOscuro=modoOscuro;
+    }
 
     public void anadirPuntuacion(Puntuacion puntuacion){
         puntuaciones.add(puntuacion);
