@@ -39,4 +39,12 @@ public class Usuario {
     @Column(name = "modo_oscuro")
     private boolean modoOscuro;
 
+    @OneToMany(mappedBy = "usuarioPuntuacion", cascade = CascadeType.ALL)
+    private List<Puntuacion> puntuaciones = new ArrayList<>();
+
+
+    public void anadirPuntuacion(Puntuacion puntuacion){
+        puntuaciones.add(puntuacion);
+        puntuacion.setUsuarioPuntuacion(this);
+    }
 }

@@ -11,14 +11,18 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Puntuacion {
-    @Id
-    @Column(name ="id_mapa")
-    private Integer idMapa;
+    @EmbeddedId
+    PuntuacionPK id;
 
+    @ManyToOne(cascade = CascadeType.ALL)
+    @MapsId("mapaId")
+    @JoinColumn(name = "id_mapa")
+    private Mapa mapaPuntuacion;
 
-    @Id
-    @Column(name = "id_usuario")
-    private String idUsuario;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @MapsId("usuarioId")
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuarioPuntuacion;
 
     @NonNull
     @Column(name = "correo_usuario")
@@ -48,13 +52,13 @@ public class Puntuacion {
     @Column(name = "rango")
     private char rango;
 
-    @ManyToOne
-    @MapsId("idMapa")
-    @JoinColumn(name = "id_mapa", nullable = false)
-    private Mapa mapa;
+    public void setMapaPuntuacion(Mapa mapaNombre){
+        this.mapaPuntuacion = mapaNombre;
+        mapaNombre.anadirPuntuacion(this);
+    }
 
-    @ManyToOne
-    @MapsId("idUsuario")
-    @JoinColumn(name = "id_usuario", nullable = false)
-    private Usuario usuario;
+    public void setUsuarioPuntuacion(Usuario usuario){
+        this.usuarioPuntuacion = usuario;
+        usuario.anadirPuntuacion(this);
+    }
 }

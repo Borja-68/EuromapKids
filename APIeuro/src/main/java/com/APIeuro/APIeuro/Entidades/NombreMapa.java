@@ -7,25 +7,27 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NombreMapa {
-    @Id
-    @Column(name ="id_mapa")
-    private Integer idMapa;
+    @EmbeddedId
+    NombreMapaPK id;
 
-    @Id
+    @ManyToOne(cascade = CascadeType.ALL)
+    @MapsId("mapaId")
+    @JoinColumn(name = "id_mapa")
+    private Mapa mapaNombre;
+
+
+    @MapsId("nombreMapa")
     @Column(name = "nombre_mapa")
-    private String nombreMapa;
+    private String nombre;
 
     @NonNull
     @Column(name = "idioma")
     private String idioma;
 
-    @ManyToOne
-    @MapsId("idMapa")
-    @JoinColumn(name = "id_mapa")
-    private Mapa mapa;
-
-    public void anadirMapa(Mapa mapa){
-        this.mapa=mapa;
-        mapa.anhadirNombre(this);
+    public void setMapaNombre(Mapa mapaNombre){
+        this.mapaNombre = mapaNombre;
+        mapaNombre.anadirNombre(this);
     }
 }
+
+
