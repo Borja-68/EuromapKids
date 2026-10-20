@@ -23,11 +23,16 @@ public class Mapa {
     @Column(name = "imagen_mapa")
     private byte[] imagen;
 
-    @OneToMany(mappedBy = "mapaNombre", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "mapa", cascade = CascadeType.ALL)
     private List<NombreMapa> nombres = new ArrayList<>();
 
     @OneToMany(mappedBy = "mapaPuntuacion", cascade = CascadeType.ALL)
     private List<Puntuacion> puntuaciones = new ArrayList<>();
+
+    public Mapa(String tipo, byte[] imagen){
+        this.tipoMapa=tipo;
+        this.imagen=imagen;
+    }
 
     public void anadirNombre(NombreMapa nombreMapa){
         nombres.add(nombreMapa);

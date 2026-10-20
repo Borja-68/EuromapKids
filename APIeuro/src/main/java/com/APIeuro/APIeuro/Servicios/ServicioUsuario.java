@@ -48,6 +48,4 @@ public class ServicioUsuario {
     public DatosUsuarioDTO obtenerDatosUsuarioPorCorreo(String correo){
         return repoUsuario.obtenerDatosUsuarioPorCorreo(correo);
     }
-
-//    public Usuario obtenerHabitacionPorId(Integer id){return  repoUsuario.obtenerHabitacionPorId(id);}
 }

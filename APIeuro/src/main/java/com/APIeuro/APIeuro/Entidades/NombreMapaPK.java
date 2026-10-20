@@ -13,5 +13,5 @@ import java.io.Serializable;
 public class NombreMapaPK implements Serializable{
     private Integer mapaId;
 
-    private String nombreMapa;
+    private  String idioma;
 }

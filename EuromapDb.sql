@@ -22,7 +22,7 @@ create table if not exists Nombre_Mapa(
 id_mapa integer,
 nombre_mapa varchar(255),
 idioma varchar(255) not null,
-primary key(id_mapa,nombre_mapa),
+primary key(id_mapa,idioma),
 foreign key (id_mapa) references Mapa(id)
 on update cascade 
 on delete cascade
