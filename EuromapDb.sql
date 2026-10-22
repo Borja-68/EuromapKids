@@ -31,9 +31,9 @@ on delete cascade
 create table if not exists Puntuacion(
 id_mapa integer,
 id_usuario integer,
-tiempo time not null,
 aciertos integer not null,
 fallos integer not null,
+tiempo bigint not null,
 puntuacion integer not null,
 rango char(1) not null,
 primary key(id_mapa,id_usuario),

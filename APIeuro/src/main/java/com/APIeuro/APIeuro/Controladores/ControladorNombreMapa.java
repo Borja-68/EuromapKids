@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/euroAPI/mapa")
+@RequestMapping("/euroAPI/nombreMapa")
 @RequiredArgsConstructor
 public class ControladorNombreMapa {
     private final ServicioMapa servicioMapa;

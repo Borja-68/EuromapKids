@@ -10,6 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class Puntuacion {
     @EmbeddedId
     PuntuacionPK id;
@@ -25,24 +26,16 @@ public class Puntuacion {
     private Usuario usuarioPuntuacion;
 
     @NonNull
-    @Column(name = "correo_usuario")
-    private String correoUsuario;
-
-    @NonNull
-    @Column(name = "tiempo")
-    private LocalTime tiempo;
-
-    @NonNull
-    @Column(name = "idioma")
-    private String idioma;
-
-    @NonNull
     @Column(name = "aciertos")
     private Integer aciertos;
 
     @NonNull
     @Column(name = "fallos")
     private Integer fallos;
+
+    @NonNull
+    @Column(name = "tiempo")
+    private long tiempo;
 
     @NonNull
     @Column(name = "puntuacion")
