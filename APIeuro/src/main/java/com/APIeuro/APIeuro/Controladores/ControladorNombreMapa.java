@@ -32,6 +32,7 @@ public class ControladorNombreMapa {
         NombreMapaPK id= new NombreMapaPK(mapa.getIdMapa(), mapaNombreNuevo.getIdiomaMapa());
         NombreMapa nombreMapa=new NombreMapa(mapaNombreNuevo.getNombreMapa());
         nombreMapa.setId(id);
+        nombreMapa.setMapa(mapa);
         servicioMapaNombre.guardar(nombreMapa);
         return ResponseEntity.status(HttpStatus.OK).body("Creado con éxito");
     }

@@ -14,13 +14,14 @@ import java.util.List;
 @Repository
 public interface MapaRepository extends JpaRepository<Mapa, Integer> {
 
-    @Query("select map.idMapa,map.imagen from Mapa map where map.tipoMapa=:tipo")
-    List<TipoMapaDTO> obtenerMapasPorTipo(@Param("tipo") String tipo);
-
     @Query("select map from Mapa map where map.idMapa=:id")
     Mapa obtenerMapaPorid(@Param("id") Integer id);
 
     @Query("select map.idMapa from Mapa map where map.idMapa=:id")
     String idExiste(@Param("id") Integer id);
+
+    @Query("select new com.APIeuro.APIeuro.DTO.TipoMapaDTO(map.idMapa,map.imagen) from Mapa map where map.tipoMapa=:tipo")
+    List<TipoMapaDTO> obtenerMapasPorTipo(@Param("tipo") String tipo);
+
 }
 

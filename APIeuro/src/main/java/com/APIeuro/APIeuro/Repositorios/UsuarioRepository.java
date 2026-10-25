@@ -7,8 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
@@ -22,12 +20,18 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
     String idExiste(@Param("id") Integer id);
 
     @Query("select us from Usuario us where us.id=:id")
-    Usuario obtenerUsuario(@Param("id") Integer id);
+    Usuario obtenerUsuarioPorId(@Param("id") Integer id);
 
-    @Query("select us.idUsuario,us.idioma,us.imagenUsuario,us.modoOscuro from Usuario us where us.nombreUsuario=:nombre")
+    @Query("select us from Usuario us where us.nombreUsuario=:nombre")
+    Usuario obtenerUsuarioPorNombre(@Param("nombre") String nombre);
+
+    @Query("select us from Usuario us where us.correoUsuario=:correo")
+    Usuario obtenerUsuarioPorCorreo(@Param("correo") String nombre);
+
+    @Query("select new com.APIeuro.APIeuro.DTO.DatosUsuarioDTO(us.idUsuario,us.idioma,us.imagenUsuario,us.modoOscuro) from Usuario us where us.nombreUsuario=:nombre")
     DatosUsuarioDTO obtenerDatosUsuarioPorNombre(@Param("nombre") String nombre);
 
-    @Query("select us.idUsuario,us.idioma,us.imagenUsuario,us.modoOscuro from Usuario us where us.correoUsuario=:correo")
+    @Query("select new com.APIeuro.APIeuro.DTO.DatosUsuarioDTO(us.idUsuario,us.idioma,us.imagenUsuario,us.modoOscuro) from Usuario us where us.correoUsuario=:correo")
     DatosUsuarioDTO obtenerDatosUsuarioPorCorreo(@Param("correo") String correo);
 }
 

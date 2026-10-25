@@ -19,7 +19,7 @@ public class ControladorUsuario {
     @PostMapping
     public ResponseEntity<String> crearUsuario(@RequestBody CreaUsuarioDTO usuarioNuevo) {
         if(servicioUsuario.nombreExiste(usuarioNuevo.getNombreUsuario())) return ResponseEntity.status(HttpStatus.CONFLICT).body("Nombre usuario ya existente");
-        if(servicioUsuario.correoExiste(usuarioNuevo.getCorreoUsuario())) return ResponseEntity.status(HttpStatus.CONFLICT).body("Nombre usuario ya existente");
+        if(servicioUsuario.correoExiste(usuarioNuevo.getCorreoUsuario())) return ResponseEntity.status(HttpStatus.CONFLICT).body("Correo usuario ya existente");
         servicioUsuario.guardar(new Usuario(usuarioNuevo.getNombreUsuario(), usuarioNuevo.getCorreoUsuario(),
                 usuarioNuevo.getContrasenaUsuario(), usuarioNuevo.getIdioma(),
                 usuarioNuevo.getImagenUsuario(), usuarioNuevo.isModoOscuro()));
@@ -36,12 +36,16 @@ public class ControladorUsuario {
     @PatchMapping("/{id}")
     public ResponseEntity<String> modificarUsuario(@PathVariable Integer id,@RequestBody ModificaUsuarioDTO usuarioNuevo) {
         if(!servicioUsuario.idExiste(id)) return ResponseEntity.status(HttpStatus.CONFLICT).body("Id de usuario no existe");
-        Usuario usuarioAModificar=servicioUsuario.obtenerUsuario(id);
-        if(!usuarioAModificar.getNombreUsuario().equals(usuarioAModificar.getNombreUsuario()) && servicioUsuario.nombreExiste(usuarioNuevo.getNombreUsuario())) return ResponseEntity.status(HttpStatus.CONFLICT).body("Nombre usuario ya existente");
-        if(usuarioNuevo.getNombreUsuario()!=null)usuarioAModificar.setNombreUsuario(usuarioNuevo.getNombreUsuario());
-        if(usuarioNuevo.getContrasenaUsuario()!=null)usuarioAModificar.setContrasenaUsuario(usuarioNuevo.getContrasenaUsuario());
-        if(usuarioNuevo.getImagenUsuario()!=null)usuarioAModificar.setImagenUsuario(usuarioNuevo.getImagenUsuario());
-        if(usuarioNuevo.getIdioma()!=null)usuarioAModificar.setIdioma(usuarioNuevo.getIdioma());
+        Usuario usuarioAModificar=servicioUsuario.obtenerUsuarioPorId(id);
+        if(!usuarioAModificar.getNombreUsuario().equals(usuarioNuevo.getNombreUsuario()) && servicioUsuario.nombreExiste(usuarioNuevo.getNombreUsuario())) return ResponseEntity.status(HttpStatus.CONFLICT).body("Nombre usuario ya existente");
+        if(!usuarioNuevo.getNombreUsuario().equals(usuarioNuevo.getNombreUsuario()))usuarioAModificar.setNombreUsuario(usuarioNuevo.getNombreUsuario());
+        if(!servicioUsuario.verificarContrasena(usuarioNuevo.getContrasenaUsuario(),usuarioAModificar.getContrasenaUsuario())){
+            usuarioAModificar.setContrasenaUsuario(usuarioNuevo.getContrasenaUsuario());
+            servicioUsuario.encriptarContrasena(usuarioAModificar);
+        }
+
+        if(usuarioNuevo.getImagenUsuario()!=usuarioAModificar.getImagenUsuario())usuarioAModificar.setImagenUsuario(usuarioNuevo.getImagenUsuario());
+        if(!usuarioNuevo.getIdioma().equals(usuarioAModificar.getIdioma()))usuarioAModificar.setIdioma(usuarioNuevo.getIdioma());
         usuarioAModificar.setModoOscuro(usuarioNuevo.isModoOscuro());
 
         servicioUsuario.modificar(usuarioAModificar);
@@ -49,7 +53,7 @@ public class ControladorUsuario {
     }
 
     @GetMapping("/{nombreOCorreo}")
-    public ResponseEntity<DatosUsuarioDTO> login(@PathVariable String nombreOCorreo) {
+    public ResponseEntity<DatosUsuarioDTO> getDatos(@PathVariable String nombreOCorreo) {
         if(servicioUsuario.correoExiste(nombreOCorreo)){
             return ResponseEntity.status(HttpStatus.OK).body(servicioUsuario.obtenerDatosUsuarioPorCorreo(nombreOCorreo));
         }
@@ -60,10 +64,21 @@ public class ControladorUsuario {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new DatosUsuarioDTO());
     }
 
-    @GetMapping("/login")
-    public ResponseEntity<Boolean> datosUsuario(@RequestBody Login loginInfo) {
-        if(loginInfo.getCorreoUsuario()!=null && servicioUsuario.correoExiste(loginInfo.getCorreoUsuario()))return ResponseEntity.status(HttpStatus.OK).body(true);
-        if(loginInfo.getNombreUsuario()!=null && servicioUsuario.nombreExiste(loginInfo.getNombreUsuario()))return ResponseEntity.status(HttpStatus.OK).body(true);
+    @GetMapping("/login/{nombreOCorreo}-{contrasena}")
+    public ResponseEntity<Boolean> login(@PathVariable String nombreOCorreo,@PathVariable String contrasena) {
+        Usuario usu;
+        if(servicioUsuario.correoExiste(nombreOCorreo)){
+            usu=servicioUsuario.obtenerUsuarioPorCorreo(nombreOCorreo);
+            if(servicioUsuario.verificarContrasena(contrasena,usu.getContrasenaUsuario()))return ResponseEntity.status(HttpStatus.OK).body(true);
+            else return ResponseEntity.status(HttpStatus.CONFLICT).body(false);
+        }
+
+        if(servicioUsuario.nombreExiste(nombreOCorreo)){
+            usu=servicioUsuario.obtenerUsuarioPorNombre(nombreOCorreo);
+            if(servicioUsuario.verificarContrasena(contrasena,usu.getContrasenaUsuario()))return ResponseEntity.status(HttpStatus.OK).body(true);
+            else return ResponseEntity.status(HttpStatus.CONFLICT).body(false);
+        }
+
         return ResponseEntity.status(HttpStatus.CONFLICT).body(false);
     }
 }

@@ -28,19 +28,21 @@ public class ControladorPuntuacion {
         if(!servicioUsuario.idExiste(puntuacionNueva.getIdUsuario())) return ResponseEntity.status(HttpStatus.CONFLICT).body("Usuario no existe");
         if(!servicioMapa.idExiste(puntuacionNueva.getIdMapa())) return ResponseEntity.status(HttpStatus.CONFLICT).body("Mapa no existe");
 
-        Usuario usu=servicioUsuario.obtenerUsuario(puntuacionNueva.getIdUsuario());
+        Usuario usu=servicioUsuario.obtenerUsuarioPorId(puntuacionNueva.getIdUsuario());
         Mapa map=servicioMapa.obtenerMapaPorId(puntuacionNueva.getIdMapa());
         PuntuacionPK id=new PuntuacionPK(map.getIdMapa(),usu.getIdUsuario());
 
         Integer puntuacion= servicioPuntuacion.calcularPuntuacion(puntuacionNueva.getAciertos(), puntuacionNueva.getFallos());
         Puntuacion puntuacionCrear= new Puntuacion(puntuacionNueva.getAciertos(),puntuacionNueva.getFallos(),puntuacionNueva.getTiempo(),puntuacion,servicioPuntuacion.obtenerRango(puntuacion));
         puntuacionCrear.setId(id);
+        puntuacionCrear.setUsuarioPuntuacion(usu);
+        puntuacionCrear.setMapaPuntuacion(map);
         servicioPuntuacion.guardar(puntuacionCrear);
 
         return ResponseEntity.status(HttpStatus.OK).body("Creado con éxito");
     }
 
-    @DeleteMapping("/{idMapa}-{idUsuario}")
+    @DeleteMapping("/{idMapa}/{idUsuario}")
     public ResponseEntity<String> borrarPuntuacion(@PathVariable Integer idMapa,@PathVariable Integer idUsuario) {
         if(!servicioPuntuacion.puntuacionExiste(idMapa,idUsuario))return ResponseEntity.status(HttpStatus.CONFLICT).body("Puntuación no eliminada, no existe");
         servicioPuntuacion.remove(new PuntuacionPK(idMapa,idUsuario));
@@ -53,15 +55,24 @@ public class ControladorPuntuacion {
         Puntuacion puntuacionVieja= servicioPuntuacion.obtenerPuntuacion(puntuacionNueva.getIdMapa(),puntuacionNueva.getIdUsuario());
         Integer puntosNuevos=servicioPuntuacion.calcularPuntuacion(puntuacionNueva.getAciertos(), puntuacionNueva.getFallos());
 
-        if(puntosNuevos<puntuacionVieja.getPuntuacion()){
+        if(puntosNuevos>puntuacionVieja.getPuntuacion()){
             puntuacionVieja.setAciertos(puntuacionNueva.getAciertos());
             puntuacionVieja.setFallos(puntuacionNueva.getFallos());
             puntuacionVieja.setPuntuacion(puntosNuevos);
             puntuacionVieja.setRango(servicioPuntuacion.obtenerRango(puntosNuevos));
             if(puntuacionNueva.getTiempo()<puntuacionVieja.getTiempo())puntuacionVieja.setTiempo(puntuacionNueva.getTiempo());
+            servicioPuntuacion.modificar(puntuacionVieja);
+            return ResponseEntity.status(HttpStatus.OK).body("Puntuacion actualizada");
         }
-        servicioPuntuacion.modificar(puntuacionVieja);
-        return ResponseEntity.status(HttpStatus.OK).body("Puntuacion anterior fue mejor, no modificado");
+
+        if(puntosNuevos.equals(puntuacionVieja.getPuntuacion())){
+            if(puntuacionNueva.getTiempo()<puntuacionVieja.getTiempo()){
+                puntuacionVieja.setTiempo(puntuacionNueva.getTiempo());
+                servicioPuntuacion.modificar(puntuacionVieja);
+                return ResponseEntity.status(HttpStatus.OK).body("Puntuacion actualizada");
+            }
+        }
+        return ResponseEntity.status(HttpStatus.CONFLICT).body("Puntuacion anterior fue mejor, no modificado");
     }
 
     @GetMapping("/{idMapa}")
@@ -69,7 +80,7 @@ public class ControladorPuntuacion {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(servicioPuntuacion.obtenerClasificacion(idMapa));
     }
 
-    @GetMapping("/{idMapa}-{idUsuario}")
+    @GetMapping("/{idMapa}/{idUsuario}")
     public ResponseEntity<PuntuacionPersonalDTO> datosUsuario(@PathVariable Integer idMapa,@PathVariable Integer idUsuario) {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(servicioPuntuacion.obtenerPuntuacionPersonal(idMapa,idUsuario));
     }

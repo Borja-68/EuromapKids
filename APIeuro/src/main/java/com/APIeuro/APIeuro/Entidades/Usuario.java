@@ -33,7 +33,7 @@ public class Usuario {
     private String idioma;
 
     @Lob
-    @Column(name = "imagen_usuario")
+    @Column(name = "imagen_usuario", columnDefinition = "MEDIUMBLOB")
     private byte[] imagenUsuario;
 
     @NonNull
@@ -63,6 +63,5 @@ public class Usuario {
 
     public void anadirPuntuacion(Puntuacion puntuacion){
         puntuaciones.add(puntuacion);
-        puntuacion.setUsuarioPuntuacion(this);
     }
 }

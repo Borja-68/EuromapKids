@@ -20,7 +20,7 @@ public class Mapa {
     private String tipoMapa;
 
     @Lob
-    @Column(name = "imagen_mapa")
+    @Column(name = "imagen_mapa", columnDefinition = "MEDIUMBLOB")
     private byte[] imagen;
 
     @OneToMany(mappedBy = "mapa", cascade = CascadeType.ALL)
@@ -36,12 +36,10 @@ public class Mapa {
 
     public void anadirNombre(NombreMapa nombreMapa){
         nombres.add(nombreMapa);
-        nombreMapa.setMapaNombre(this);
     }
 
     public void anadirPuntuacion(Puntuacion puntuacion){
         puntuaciones.add(puntuacion);
-        puntuacion.setMapaPuntuacion(this);
     }
 
 }

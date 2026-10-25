@@ -15,12 +15,12 @@ public class Puntuacion {
     @EmbeddedId
     PuntuacionPK id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @MapsId("mapaId")
     @JoinColumn(name = "id_mapa")
     private Mapa mapaPuntuacion;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @MapsId("usuarioId")
     @JoinColumn(name = "id_usuario")
     private Usuario usuarioPuntuacion;
@@ -44,14 +44,4 @@ public class Puntuacion {
     @NonNull
     @Column(name = "rango")
     private char rango;
-
-    public void setMapaPuntuacion(Mapa mapaNombre){
-        this.mapaPuntuacion = mapaNombre;
-        mapaNombre.anadirPuntuacion(this);
-    }
-
-    public void setUsuarioPuntuacion(Usuario usuario){
-        this.usuarioPuntuacion = usuario;
-        usuario.anadirPuntuacion(this);
-    }
 }

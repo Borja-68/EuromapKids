@@ -11,7 +11,7 @@ public class NombreMapa {
     @EmbeddedId
     NombreMapaPK id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @MapsId("mapaId")
     @JoinColumn(name = "id_mapa")
     private Mapa mapa;
@@ -20,14 +20,10 @@ public class NombreMapa {
     @Column(name = "nombre_mapa")
     private String nombreMapa;
 
-    @MapsId("idioma")
-    @Column(name = "idioma")
+    @Column(name = "idioma", insertable = false, updatable = false)
     private String idiomaMapa;
 
-    public void setMapaNombre(Mapa mapa){
-        this.mapa = mapa;
-        mapa.anadirNombre(this);
-    }
+
 }
 
 

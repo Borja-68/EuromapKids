@@ -4,9 +4,8 @@ import com.APIeuro.APIeuro.DTO.DatosUsuarioDTO;
 import com.APIeuro.APIeuro.Entidades.Usuario;
 import com.APIeuro.APIeuro.Repositorios.UsuarioRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -14,9 +13,16 @@ public class ServicioUsuario {
 
     private final UsuarioRepository repoUsuario;
 
+    private final BCryptPasswordEncoder encriptador;
+
+    public void encriptarContrasena(Usuario usu){
+        usu.setContrasenaUsuario(encriptador.encode(usu.getContrasenaUsuario()));
+    }
     public void guardar(Usuario usu) {
+        encriptarContrasena(usu);
         repoUsuario.save(usu);
     }
+
     public Usuario modificar(Usuario usu) {
        return repoUsuario.save(usu);
     }
@@ -37,8 +43,20 @@ public class ServicioUsuario {
         return repoUsuario.idExiste(id) !=null;
     }
 
-    public Usuario obtenerUsuario(Integer id){
-        return repoUsuario.obtenerUsuario(id);
+    public Usuario obtenerUsuarioPorId(Integer id){
+        return repoUsuario.obtenerUsuarioPorId(id);
+    }
+
+    public Usuario obtenerUsuarioPorCorreo(String correo){
+        return repoUsuario.obtenerUsuarioPorCorreo(correo);
+    }
+
+    public Usuario obtenerUsuarioPorNombre(String nombre){
+        return repoUsuario.obtenerUsuarioPorNombre(nombre);
+    }
+
+    public boolean verificarContrasena(String contrasenaEnviada, String contrasenaEncriptada) {
+        return encriptador.matches(contrasenaEnviada, contrasenaEncriptada);
     }
 
     public DatosUsuarioDTO obtenerDatosUsuarioPorNombre(String nombre){
