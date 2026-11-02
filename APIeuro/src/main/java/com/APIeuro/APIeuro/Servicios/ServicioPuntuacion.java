@@ -2,6 +2,7 @@ package com.APIeuro.APIeuro.Servicios;
 
 import com.APIeuro.APIeuro.DTO.DatosClasificacionDTO;
 import com.APIeuro.APIeuro.DTO.PuntuacionPersonalDTO;
+import com.APIeuro.APIeuro.DTO.PuntuacionPersonalPorTipo;
 import com.APIeuro.APIeuro.Entidades.NombreMapa;
 import com.APIeuro.APIeuro.Entidades.NombreMapaPK;
 import com.APIeuro.APIeuro.Entidades.Puntuacion;
@@ -59,6 +60,10 @@ public class ServicioPuntuacion {
 
     public PuntuacionPersonalDTO obtenerPuntuacionPersonal(Integer idMapa, Integer idUsuario){
         return repoPuntuacion.obtenerPuntuacionPersonal(idMapa,idUsuario);
+    }
+
+    public List<PuntuacionPersonalPorTipo> obtenerPuntuacionesPersonales(String nombreUsuario){
+        return repoPuntuacion.obtenerPuntuacionesPersonales(nombreUsuario);
     }
 
 }

@@ -105,17 +105,52 @@ class ControladorPuntuacionTest {
 
     @Test void obtenerClasificacionDevuelveElServicio() {
         List<DatosClasificacionDTO> datos = List.of(new DatosClasificacionDTO("ana", 600, 20));
+        when(mapas.idExiste(5)).thenReturn(true);
         when(puntuaciones.obtenerClasificacion(5)).thenReturn(datos);
         var respuesta = controlador.obtenerClasificacion(5);
-        assertEquals(409, respuesta.getStatusCode().value());
+        assertEquals(200, respuesta.getStatusCode().value());
         assertSame(datos, respuesta.getBody());
+    }
+
+    @Test void obtenerClasificacionRechazaMapaInexistente() {
+        when(mapas.idExiste(5)).thenReturn(false);
+        var respuesta = controlador.obtenerClasificacion(5);
+        assertEquals(409, respuesta.getStatusCode().value());
+        assertTrue(respuesta.getBody().isEmpty());
+        verify(puntuaciones, never()).obtenerClasificacion(5);
     }
 
     @Test void obtenerPuntuacionPersonalDevuelveElServicio() {
         PuntuacionPersonalDTO datos = new PuntuacionPersonalDTO(6, 4, 20, 600, 'B');
+        when(puntuaciones.puntuacionExiste(5, 7)).thenReturn(true);
         when(puntuaciones.obtenerPuntuacionPersonal(5, 7)).thenReturn(datos);
-        var respuesta = controlador.datosUsuario(5, 7);
+        var respuesta = controlador.datosMapaUsuario(5, 7);
+        assertEquals(200, respuesta.getStatusCode().value());
+        assertSame(datos, respuesta.getBody());
+    }
+
+    @Test void obtenerPuntuacionPersonalRechazaSiNoExiste() {
+        when(puntuaciones.puntuacionExiste(5, 7)).thenReturn(false);
+        var respuesta = controlador.datosMapaUsuario(5, 7);
         assertEquals(409, respuesta.getStatusCode().value());
+        verify(puntuaciones, never()).obtenerPuntuacionPersonal(5, 7);
+    }
+
+    @Test void obtenerPuntuacionesDeUsuarioInexistenteDevuelveListaVacia() {
+        when(usuarios.nombreExiste("ana")).thenReturn(false);
+        var respuesta = controlador.datosMapasUsuario("ana");
+        assertEquals(409, respuesta.getStatusCode().value());
+        assertTrue(respuesta.getBody().isEmpty());
+        verify(puntuaciones, never()).obtenerPuntuacionesPersonales(anyString());
+    }
+
+    @Test void obtenerPuntuacionesDeUsuarioDevuelveLasPuntuaciones() {
+        List<PuntuacionPersonalPorTipo> datos = List.of(
+                new PuntuacionPersonalPorTipo("Europa", "Continente", 6, 4, 20, 600, 'B'));
+        when(usuarios.nombreExiste("ana")).thenReturn(true);
+        when(puntuaciones.obtenerPuntuacionesPersonales("ana")).thenReturn(datos);
+        var respuesta = controlador.datosMapasUsuario("ana");
+        assertEquals(200, respuesta.getStatusCode().value());
         assertSame(datos, respuesta.getBody());
     }
 }

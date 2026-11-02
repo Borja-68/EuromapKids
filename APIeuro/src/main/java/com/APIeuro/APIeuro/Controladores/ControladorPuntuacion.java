@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -77,11 +78,21 @@ public class ControladorPuntuacion {
 
     @GetMapping("/{idMapa}")
     public ResponseEntity<List<DatosClasificacionDTO>> obtenerClasificacion(@PathVariable Integer idMapa) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(servicioPuntuacion.obtenerClasificacion(idMapa));
+        if(!servicioMapa.idExiste(idMapa)) return ResponseEntity.status(HttpStatus.CONFLICT).body(new ArrayList<>());
+
+        return ResponseEntity.status(HttpStatus.OK).body(servicioPuntuacion.obtenerClasificacion(idMapa));
     }
 
     @GetMapping("/{idMapa}/{idUsuario}")
-    public ResponseEntity<PuntuacionPersonalDTO> datosUsuario(@PathVariable Integer idMapa,@PathVariable Integer idUsuario) {
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(servicioPuntuacion.obtenerPuntuacionPersonal(idMapa,idUsuario));
+    public ResponseEntity<PuntuacionPersonalDTO> datosMapaUsuario(@PathVariable Integer idMapa, @PathVariable Integer idUsuario) {
+        if(!servicioPuntuacion.puntuacionExiste(idMapa,idUsuario)) return ResponseEntity.status(HttpStatus.CONFLICT).body(new PuntuacionPersonalDTO());
+
+        return ResponseEntity.status(HttpStatus.OK).body(servicioPuntuacion.obtenerPuntuacionPersonal(idMapa,idUsuario));
+    }
+
+    @GetMapping("/puntuaciones/{nombreUsuario}")
+    public ResponseEntity<List<PuntuacionPersonalPorTipo>> datosMapasUsuario(@PathVariable String nombreUsuario) {
+        if(!servicioUsuario.nombreExiste(nombreUsuario)) return ResponseEntity.status(HttpStatus.CONFLICT).body(new ArrayList<>());
+        return ResponseEntity.status(HttpStatus.OK).body(servicioPuntuacion.obtenerPuntuacionesPersonales(nombreUsuario));
     }
 }

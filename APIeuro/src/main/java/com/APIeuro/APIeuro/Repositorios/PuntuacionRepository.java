@@ -2,14 +2,18 @@ package com.APIeuro.APIeuro.Repositorios;
 
 import com.APIeuro.APIeuro.DTO.DatosClasificacionDTO;
 import com.APIeuro.APIeuro.DTO.PuntuacionPersonalDTO;
+import com.APIeuro.APIeuro.DTO.PuntuacionPersonalPorTipo;
+import com.APIeuro.APIeuro.Entidades.Mapa;
 import com.APIeuro.APIeuro.Entidades.Puntuacion;
 import com.APIeuro.APIeuro.Entidades.PuntuacionPK;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Map;
 
 @Repository
 public interface PuntuacionRepository extends JpaRepository<Puntuacion, PuntuacionPK> {
@@ -25,5 +29,8 @@ public interface PuntuacionRepository extends JpaRepository<Puntuacion, Puntuaci
 
     @Query("select new com.APIeuro.APIeuro.DTO.PuntuacionPersonalDTO(pun.aciertos,pun.fallos,pun.tiempo,pun.puntuacion,pun.rango) from Puntuacion pun join pun.mapaPuntuacion map join pun.usuarioPuntuacion usu where map.idMapa=:idMapa and usu.idUsuario=:idUsuario")
     PuntuacionPersonalDTO obtenerPuntuacionPersonal(@Param("idMapa") Integer idMapa, @Param("idUsuario") Integer idUsuario);
+
+    @Query("select new com.APIeuro.APIeuro.DTO.PuntuacionPersonalPorTipo(mapNom.nombreMapa,map.tipoMapa,pun.aciertos,pun.fallos,pun.tiempo,pun.puntuacion,pun.rango) from Puntuacion pun join pun.mapaPuntuacion map join pun.usuarioPuntuacion usu join map.nombres mapNom where usu.nombreUsuario=:nombreUsuario and mapNom.idiomaMapa=usu.idioma")
+    List<PuntuacionPersonalPorTipo> obtenerPuntuacionesPersonales(@Param("nombreUsuario") String nombreUsuario);
 }
 
