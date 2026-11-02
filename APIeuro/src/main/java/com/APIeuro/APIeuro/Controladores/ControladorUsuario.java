@@ -40,7 +40,7 @@ public class ControladorUsuario {
         if(!servicioUsuario.idExiste(id)) return ResponseEntity.status(HttpStatus.CONFLICT).body("Id de usuario no existe");
         Usuario usuarioAModificar=servicioUsuario.obtenerUsuarioPorId(id);
         if(!usuarioAModificar.getNombreUsuario().equals(usuarioNuevo.getNombreUsuario()) && servicioUsuario.nombreExiste(usuarioNuevo.getNombreUsuario())) return ResponseEntity.status(HttpStatus.CONFLICT).body("Nombre usuario ya existente");
-        if(!usuarioNuevo.getNombreUsuario().equals(usuarioNuevo.getNombreUsuario()))usuarioAModificar.setNombreUsuario(usuarioNuevo.getNombreUsuario());
+        if(!usuarioAModificar.getNombreUsuario().equals(usuarioNuevo.getNombreUsuario()))usuarioAModificar.setNombreUsuario(usuarioNuevo.getNombreUsuario());
         if(!servicioUsuario.verificarContrasena(usuarioNuevo.getContrasenaUsuario(),usuarioAModificar.getContrasenaUsuario())){
             usuarioAModificar.setContrasenaUsuario(usuarioNuevo.getContrasenaUsuario());
             servicioUsuario.encriptarContrasena(usuarioAModificar);
