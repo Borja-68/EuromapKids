@@ -5,6 +5,7 @@ import com.APIeuro.APIeuro.DTO.Login;
 import com.APIeuro.APIeuro.DTO.ModificaUsuarioDTO;
 import com.APIeuro.APIeuro.Entidades.Usuario;
 import com.APIeuro.APIeuro.Servicios.ServicioUsuario;
+import com.APIeuro.APIeuro.Servicios.ServicioJwt;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,9 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class ControladorUsuario {
     private final ServicioUsuario servicioUsuario;
+    private final ServicioJwt servicioJwt;
 
-    @PostMapping
+    @PostMapping("/registro")
     public ResponseEntity<String> crearUsuario(@RequestBody CreaUsuarioDTO usuarioNuevo) {
         if(servicioUsuario.nombreExiste(usuarioNuevo.getNombreUsuario())) return ResponseEntity.status(HttpStatus.CONFLICT).body("Nombre usuario ya existente");
         if(servicioUsuario.correoExiste(usuarioNuevo.getCorreoUsuario())) return ResponseEntity.status(HttpStatus.CONFLICT).body("Correo usuario ya existente");
@@ -64,21 +66,25 @@ public class ControladorUsuario {
         return ResponseEntity.status(HttpStatus.CONFLICT).body(new DatosUsuarioDTO());
     }
 
-    @GetMapping("/login/{nombreOCorreo}-{contrasena}")
-    public ResponseEntity<Boolean> login(@PathVariable String nombreOCorreo,@PathVariable String contrasena) {
+    @PostMapping("/login")
+    public ResponseEntity<?> login(@RequestBody Login credenciales) {
+        String nombreOCorreo;
+        if(credenciales.getNombreUsuario()!=null)nombreOCorreo=credenciales.getNombreUsuario();
+        else nombreOCorreo=credenciales.getCorreoUsuario();
+        String contrasena = credenciales.getContrasenaUsuario();
         Usuario usu;
         if(servicioUsuario.correoExiste(nombreOCorreo)){
             usu=servicioUsuario.obtenerUsuarioPorCorreo(nombreOCorreo);
-            if(servicioUsuario.verificarContrasena(contrasena,usu.getContrasenaUsuario()))return ResponseEntity.status(HttpStatus.OK).body(true);
-            else return ResponseEntity.status(HttpStatus.CONFLICT).body(false);
+            if(servicioUsuario.verificarContrasena(contrasena,usu.getContrasenaUsuario()))return ResponseEntity.ok(java.util.Map.of("token", servicioJwt.crearToken(usu.getIdUsuario().toString())));
+            else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(java.util.Map.of("error", "Credenciales incorrectas"));
         }
 
         if(servicioUsuario.nombreExiste(nombreOCorreo)){
             usu=servicioUsuario.obtenerUsuarioPorNombre(nombreOCorreo);
-            if(servicioUsuario.verificarContrasena(contrasena,usu.getContrasenaUsuario()))return ResponseEntity.status(HttpStatus.OK).body(true);
-            else return ResponseEntity.status(HttpStatus.CONFLICT).body(false);
+            if(servicioUsuario.verificarContrasena(contrasena,usu.getContrasenaUsuario()))return ResponseEntity.ok(java.util.Map.of("token", servicioJwt.crearToken(usu.getIdUsuario().toString())));
+            else return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(java.util.Map.of("error", "Credenciales incorrectas"));
         }
 
-        return ResponseEntity.status(HttpStatus.CONFLICT).body(false);
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(java.util.Map.of("error", "Credenciales incorrectas"));
     }
 }
