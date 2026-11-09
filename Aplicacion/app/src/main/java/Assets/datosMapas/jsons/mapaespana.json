@@ -1,0 +1,70 @@
+{
+  "galicia": {
+    "id": "Galicia",
+    "name": { "es": "Galicia", "en": "Galicia", "ca": "Galícia" }
+  },
+  "asturias": {
+    "id": "Asturias",
+    "name": { "es": "Asturias", "en": "Asturias", "ca": "Astúries" }
+  },
+  "cantabria": {
+    "id": "Cantabria",
+    "name": { "es": "Cantabria", "en": "Cantabria", "ca": "Cantàbria" }
+  },
+  "pais_vasco": {
+    "id": "Pais_Vasco",
+    "name": { "es": "País Vasco", "en": "Basque Country", "ca": "País Basc" }
+  },
+  "navarra": {
+    "id": "Navarra",
+    "name": { "es": "Navarra", "en": "Navarre", "ca": "Navarra" }
+  },
+  "la_rioja": {
+    "id": "La_Rioja",
+    "name": { "es": "La Rioja", "en": "La Rioja", "ca": "La Rioja" }
+  },
+  "aragon": {
+    "id": "Aragón",
+    "name": { "es": "Aragón", "en": "Aragon", "ca": "Aragó" }
+  },
+  "cataluna": {
+    "id": "Cataluña",
+    "name": { "es": "Cataluña", "en": "Catalonia", "ca": "Catalunya" }
+  },
+  "castilla_y_leon": {
+    "id": "Castilla_y_León",
+    "name": { "es": "Castilla y León", "en": "Castile and León", "ca": "Castella i Lleó" }
+  },
+  "madrid": {
+    "id": "Madrid",
+    "name": { "es": "Comunidad de Madrid", "en": "Community of Madrid", "ca": "Comunitat de Madrid" }
+  },
+  "extremadura": {
+    "id": "Extremadura",
+    "name": { "es": "Extremadura", "en": "Extremadura", "ca": "Extremadura" }
+  },
+  "castilla_la_mancha": {
+    "id": "Castilla_la_Mancha",
+    "name": { "es": "Castilla-La Mancha", "en": "Castile-La Mancha", "ca": "Castella-La Manxa" }
+  },
+  "valencia": {
+    "id": "Valencia",
+    "name": { "es": "Comunidad Valenciana", "en": "Valencian Community", "ca": "Comunitat Valenciana" }
+  },
+  "murcia": {
+    "id": "Murcia",
+    "name": { "es": "Región de Murcia", "en": "Region of Murcia", "ca": "Regió de Múrcia" }
+  },
+  "andalucia": {
+    "id": "Andalucía",
+    "name": { "es": "Andalucía", "en": "Andalusia", "ca": "Andalusia" }
+  },
+  "islas_baleares": {
+    "id": "Islas_Baleares",
+    "name": { "es": "Islas Baleares", "en": "Balearic Islands", "ca": "Illes Balears" }
+  },
+  "islas_canarias": {
+    "id": "Islas_Canarias",
+    "name": { "es": "Islas Canarias", "en": "Canary Islands", "ca": "Illes Canàries" }
+  }
+}
