@@ -1,0 +1,77 @@
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: 100vh;
+    height: 100dvh;
+    background-color: #f4f4f4;
+    font-family: sans-serif;
+}
+
+#map-container {
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+}
+
+#map-container img {
+    display: block;
+    max-width: min(100vw, 600px);
+    max-height: 75vh;
+    object-fit: contain;
+}
+
+#info-box {
+    margin-bottom: 15px;
+    padding: 10px 20px;
+    background: #ffffff;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+#timer-box {
+    margin: 12px 0 6px;
+    color: #333333;
+    font-size: 20px;
+    font-weight: bold;
+    font-variant-numeric: tabular-nums;
+}
+
+#map-container svg {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    aspect-ratio: 513.50122 / 340.87146;
+}
+
+/* Estilo por defecto para todos los elementos del SVG */
+svg path {
+    fill: #ffffff;
+    stroke: #333333;
+    stroke-width: 1px;
+}
+
+/* Solo los paths enlazados con el JSON serán interactivos */
+svg path.interactiva {
+    cursor: pointer;
+    transition: fill 0.2s ease;
+}
+
+/* Color cuando la región está seleccionada */
+svg path.interactiva.seleccionada {
+    fill: #ff5722;
+}
+/* Color cuando la respuesta es CORRECTA */
+svg path.interactiva.correcta {
+    fill: #4CAF50 !important; /* Verde */
+}
+
+/* Color cuando la respuesta es INCORRECTA */
+svg path.interactiva.incorrecta {
+    fill: #F44336 !important; /* Rojo */
+}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa Interactivo</title>
+    <!-- Enlazamos tu hoja de estilos CSS si la tienes en la misma carpeta o ajustas la ruta -->
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body data-lang="<!--MAP_LANG-->">
+
+<div id="timer-box">00:00.000</div>
+
+<!-- Panel donde se mostrará el nombre de la región seleccionada -->
+<div id="info-box">Selecciona una región</div>
+
+<!-- Contenedor donde se inyectará dinámicamente el SVG -->
+<div id="map-container"><!--MAP_SVG--></div>
+<script id="map-data" type="application/json"><!--MAP_JSON--></script>
+<script src="jugabilidad.js"></script>
+</body>
+</html>
