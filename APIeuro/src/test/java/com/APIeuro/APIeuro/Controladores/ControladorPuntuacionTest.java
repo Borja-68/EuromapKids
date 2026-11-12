@@ -103,13 +103,17 @@ class ControladorPuntuacionTest {
         verify(puntuaciones, never()).modificar(any());
     }
 
-    @Test void obtenerClasificacionDevuelveElServicio() {
-        List<DatosClasificacionDTO> datos = List.of(new DatosClasificacionDTO("ana", 600, 20));
+    @Test void obtenerClasificacionDevuelveElServicioConTiempoFormateado() {
+        List<DatosClasificacionDTO> datos = List.of(new DatosClasificacionDTO("ana", 600, 125000));
         when(mapas.idExiste(5)).thenReturn(true);
         when(puntuaciones.obtenerClasificacion(5)).thenReturn(datos);
+        when(puntuaciones.formatoTiempo(125000)).thenReturn("2.0:5.0:0");
         var respuesta = controlador.obtenerClasificacion(5);
         assertEquals(200, respuesta.getStatusCode().value());
-        assertSame(datos, respuesta.getBody());
+        assertEquals(1, respuesta.getBody().size());
+        assertEquals("ana", respuesta.getBody().get(0).getNombreUsuario());
+        assertEquals(600, respuesta.getBody().get(0).getPuntuacion());
+        assertEquals("2.0:5.0:0", respuesta.getBody().get(0).getTiempo());
     }
 
     @Test void obtenerClasificacionRechazaMapaInexistente() {
@@ -120,13 +124,17 @@ class ControladorPuntuacionTest {
         verify(puntuaciones, never()).obtenerClasificacion(5);
     }
 
-    @Test void obtenerPuntuacionPersonalDevuelveElServicio() {
-        PuntuacionPersonalDTO datos = new PuntuacionPersonalDTO(6, 4, 20, 600, 'B');
+    @Test void obtenerPuntuacionPersonalDevuelveResultadoYTiempoFormateados() {
+        PuntuacionPersonalDTO datos = new PuntuacionPersonalDTO(6, 4, 90061, 600, 'B');
         when(puntuaciones.puntuacionExiste(5, 7)).thenReturn(true);
         when(puntuaciones.obtenerPuntuacionPersonal(5, 7)).thenReturn(datos);
+        when(puntuaciones.obtenerTotal(6, 4)).thenReturn("6/10");
+        when(puntuaciones.formatoTiempo(90061)).thenReturn("1.0:30.0:61");
         var respuesta = controlador.datosMapaUsuario(5, 7);
         assertEquals(200, respuesta.getStatusCode().value());
-        assertSame(datos, respuesta.getBody());
+        assertEquals("6/10", respuesta.getBody().getResultado());
+        assertEquals("1.0:30.0:61", respuesta.getBody().getTiempo());
+        assertEquals('B', respuesta.getBody().getRango());
     }
 
     @Test void obtenerPuntuacionPersonalRechazaSiNoExiste() {
@@ -144,13 +152,20 @@ class ControladorPuntuacionTest {
         verify(puntuaciones, never()).obtenerPuntuacionesPersonales(anyString());
     }
 
-    @Test void obtenerPuntuacionesDeUsuarioDevuelveLasPuntuaciones() {
+    @Test void obtenerPuntuacionesDeUsuarioDevuelveResultadosYTiempoFormateados() {
         List<PuntuacionPersonalPorTipo> datos = List.of(
-                new PuntuacionPersonalPorTipo("Europa", "Continente", 6, 4, 20, 600, 'B'));
+                new PuntuacionPersonalPorTipo("Europa", "Continente", 6, 4, 61005, 600, 'B'));
         when(usuarios.nombreExiste("ana")).thenReturn(true);
         when(puntuaciones.obtenerPuntuacionesPersonales("ana")).thenReturn(datos);
+        when(puntuaciones.obtenerTotal(6, 4)).thenReturn("6/10");
+        when(puntuaciones.formatoTiempo(61005)).thenReturn("1.0:1.0:5");
         var respuesta = controlador.datosMapasUsuario("ana");
         assertEquals(200, respuesta.getStatusCode().value());
-        assertSame(datos, respuesta.getBody());
+        assertEquals(1, respuesta.getBody().size());
+        assertEquals("Europa", respuesta.getBody().get(0).getNombreMapa());
+        assertEquals("Continente", respuesta.getBody().get(0).getTipoMapa());
+        assertEquals("6/10", respuesta.getBody().get(0).getResultado());
+        assertEquals("1.0:1.0:5", respuesta.getBody().get(0).getTiempo());
+        assertEquals('B', respuesta.getBody().get(0).getRango());
     }
 }

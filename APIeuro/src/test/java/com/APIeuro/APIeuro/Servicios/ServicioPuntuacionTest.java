@@ -18,4 +18,12 @@ class ServicioPuntuacionTest {
         assertEquals('A', servicio.obtenerRango(750));
         assertEquals('S', servicio.obtenerRango(900));
     }
+
+    @Test void formatoTiempoConvierteMilisegundosATexto() {
+        assertEquals("2.0:5.0:0", servicio.formatoTiempo(125000));
+    }
+
+    @Test void obtenerTotalDevuelveAciertosSobreRespuestasTotales() {
+        assertEquals("6/10", servicio.obtenerTotal(6, 4));
+    }
 }
