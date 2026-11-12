@@ -1,0 +1,25 @@
+package com.example.euromapapp.viewModel.vm
+
+import android.app.Application
+import android.content.Context
+import android.util.Base64
+import androidx.lifecycle.AndroidViewModel
+import com.example.euromapapp.viewModel.Uis.PaginaJuegoUiState
+import com.example.euromapapp.viewModel.interfaces.Decompilador64
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+
+class PaginaPerfilVM(application: Application) : AndroidViewModel(application), Decompilador64 {
+    private val _uiState = MutableStateFlow(PaginaJuegoUiState())
+    val uiState: StateFlow<PaginaJuegoUiState> = _uiState.asStateFlow()
+    private val context: Context?
+        get() = getApplication<Application>().applicationContext
+
+    override fun decodificarImagen(base64: String): ByteArray {
+        val contenido = base64.substringAfter(",", base64).trim()
+        return Base64.decode(contenido, Base64.DEFAULT)
+    }
+
+    // val usuarioActual = PreferencesRepo(context!!)
+}

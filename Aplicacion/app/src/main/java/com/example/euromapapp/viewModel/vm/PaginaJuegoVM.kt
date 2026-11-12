@@ -2,8 +2,10 @@ package com.example.euromapapp.viewModel.vm
 
 import android.app.Application
 import android.content.Context
+import android.util.Base64
 import androidx.lifecycle.AndroidViewModel
 import com.example.euromapapp.viewModel.Uis.PaginaJuegoUiState
+import com.example.euromapapp.viewModel.interfaces.Decompilador64
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -15,5 +17,6 @@ class PaginaJuegoVM(application: Application) : AndroidViewModel(application) {
     val uiState: StateFlow<PaginaJuegoUiState> = _uiState.asStateFlow()
     private val context: Context?
         get() = getApplication<Application>().applicationContext
+
     // val usuarioActual = PreferencesRepo(context!!)
 }

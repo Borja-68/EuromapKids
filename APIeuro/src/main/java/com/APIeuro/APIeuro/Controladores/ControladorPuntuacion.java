@@ -77,22 +77,41 @@ public class ControladorPuntuacion {
     }
 
     @GetMapping("/{idMapa}")
-    public ResponseEntity<List<DatosClasificacionDTO>> obtenerClasificacion(@PathVariable Integer idMapa) {
+    public ResponseEntity<List<DatosClasificacionDTOEnvio>> obtenerClasificacion(@PathVariable Integer idMapa) {
         if(!servicioMapa.idExiste(idMapa)) return ResponseEntity.status(HttpStatus.CONFLICT).body(new ArrayList<>());
-
-        return ResponseEntity.status(HttpStatus.OK).body(servicioPuntuacion.obtenerClasificacion(idMapa));
+        List<DatosClasificacionDTO>puntuaciones =servicioPuntuacion.obtenerClasificacion(idMapa);
+        List<DatosClasificacionDTOEnvio>clasificacion=new ArrayList<>();
+        for(DatosClasificacionDTO puntuacion : puntuaciones){
+            clasificacion.add(new DatosClasificacionDTOEnvio(puntuacion.getNombreUsuario(),
+                    puntuacion.getPuntuacion(),
+                    servicioPuntuacion.formatoTiempo(puntuacion.getTiempo())
+                   ));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(clasificacion);
     }
 
     @GetMapping("/{idMapa}/{idUsuario}")
-    public ResponseEntity<PuntuacionPersonalDTO> datosMapaUsuario(@PathVariable Integer idMapa, @PathVariable Integer idUsuario) {
-        if(!servicioPuntuacion.puntuacionExiste(idMapa,idUsuario)) return ResponseEntity.status(HttpStatus.CONFLICT).body(new PuntuacionPersonalDTO());
-
-        return ResponseEntity.status(HttpStatus.OK).body(servicioPuntuacion.obtenerPuntuacionPersonal(idMapa,idUsuario));
+    public ResponseEntity<PuntuacionPersonalDTOEnvio> datosMapaUsuario(@PathVariable Integer idMapa, @PathVariable Integer idUsuario) {
+        if(!servicioPuntuacion.puntuacionExiste(idMapa,idUsuario)) return ResponseEntity.status(HttpStatus.CONFLICT).body(new PuntuacionPersonalDTOEnvio());
+        PuntuacionPersonalDTO puntuacion =servicioPuntuacion.obtenerPuntuacionPersonal(idMapa,idUsuario);
+        return ResponseEntity.status(HttpStatus.OK).body(new PuntuacionPersonalDTOEnvio(servicioPuntuacion.obtenerTotal(puntuacion.getAciertos(),puntuacion.getFallos()),
+                servicioPuntuacion.formatoTiempo(puntuacion.getTiempo()),
+                puntuacion.getRango()));
     }
 
     @GetMapping("/puntuaciones/{nombreUsuario}")
-    public ResponseEntity<List<PuntuacionPersonalPorTipo>> datosMapasUsuario(@PathVariable String nombreUsuario) {
+    public ResponseEntity<List<PuntuacionPersonalPorTipoEnvio>> datosMapasUsuario(@PathVariable String nombreUsuario) {
         if(!servicioUsuario.nombreExiste(nombreUsuario)) return ResponseEntity.status(HttpStatus.CONFLICT).body(new ArrayList<>());
-        return ResponseEntity.status(HttpStatus.OK).body(servicioPuntuacion.obtenerPuntuacionesPersonales(nombreUsuario));
+        List<PuntuacionPersonalPorTipo>puntuaciones =servicioPuntuacion.obtenerPuntuacionesPersonales(nombreUsuario);
+        List<PuntuacionPersonalPorTipoEnvio>puntuacionPersonalPorTipoEnvios=new ArrayList<>();
+        for(PuntuacionPersonalPorTipo puntuacion : puntuaciones){
+            puntuacionPersonalPorTipoEnvios.add(new PuntuacionPersonalPorTipoEnvio(puntuacion.getNombreMapa(),
+                    puntuacion.getTipoMapa(),
+                    servicioPuntuacion.obtenerTotal(puntuacion.getAciertos(),puntuacion.getFallos()),
+                    servicioPuntuacion.formatoTiempo(puntuacion.getTiempo()),
+                    puntuacion.getRango()));
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(puntuacionPersonalPorTipoEnvios);
+
     }
 }

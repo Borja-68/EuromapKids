@@ -66,4 +66,16 @@ public class ServicioPuntuacion {
         return repoPuntuacion.obtenerPuntuacionesPersonales(nombreUsuario);
     }
 
+    public String formatoTiempo(long tiempoMs) {
+    String minutos = String.valueOf(Math.floor(tiempoMs / 60000));
+        String segundos = String.valueOf(Math.floor((tiempoMs % 60000) / 1000));
+        String milisegundos = String.valueOf(tiempoMs % 1000);
+        return minutos+":"+segundos+":"+milisegundos;
+    }
+
+    public String obtenerTotal(int aciertos,int fallos) {
+        int total=aciertos+fallos;
+        return aciertos+"/"+total;
+    }
+
 }
