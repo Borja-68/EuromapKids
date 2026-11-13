@@ -19,6 +19,8 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.euromapapp.R
+import com.example.euromapapp.componentes.ComponenteImagenLocal
 
 /**
  *@param imagen la imagen de la tarjeta
@@ -31,8 +33,18 @@ data class Tarjeta(
     val accion: () -> Unit = { Log.e("Testeo","tarjeta cliqueada")},
 )
 
+data class TarjetaResultadoPerfil(
+    val imagen: Int,
+    val tipo: String="",
+    val nombreMapa: String="",
+    val aciertos: String="",
+    val tiempo: String="",
+    val accion: () -> Unit = { Log.e("Testeo","tarjeta cliqueada")},
+)
+
+
 data class TarjetaResultado(
-    val imagen: String="",
+    val imagen: Int,
     val aciertos: String="",
     val tiempo: String="",
     val accion: () -> Unit = { Log.e("Testeo","tarjeta cliqueada")},
@@ -43,10 +55,15 @@ data class TarjetaResultado(
  * @param tamanio cambia el tamaño de la imagen y texto de la tarjeta, predefinido a 40
  */
 @Composable
-fun ComponenteTarjetaHorizontal(
-    contenido: Tarjeta,
+fun ComponenteTarjetaHorizontalPersonal(
+    contenido: TarjetaResultadoPerfil,
     tamanio: Int = 40
 ) {
+    var cadena=
+            "    Aciertos: "+contenido.aciertos+
+            "    Tiempo: "+contenido.tiempo+
+            "    Nombre: "+contenido.nombreMapa+
+            "    Nombre: "+contenido.tipo
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -55,9 +72,9 @@ fun ComponenteTarjetaHorizontal(
             .height(height = (tamanio * 1.25).dp)
             .fillMaxWidth()
     ) {
-        ComponenteImagen(id = contenido.imagen, tamanio = tamanio)
+        ComponenteImagenLocal(id = contenido.imagen, tamanio = tamanio)
         Text(
-            text = contenido.titulo,
+            text = cadena,
             modifier = Modifier.padding(vertical = 2.dp, horizontal = 4.dp),
             fontSize = (tamanio * 0.5).sp,
             color = MaterialTheme.colorScheme.onSecondary,
@@ -72,7 +89,7 @@ fun ComponenteTarjetaPuntuacion(
     contenido: TarjetaResultado,
     tamanio: Int = 40
 ) {
-    var cadena="aciertos:"+contenido.aciertos+"    tiempo:"+contenido.tiempo
+    var cadena="  Aciertos: "+contenido.aciertos+"    Tiempo: "+contenido.tiempo
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -81,57 +98,58 @@ fun ComponenteTarjetaPuntuacion(
             .height(height = (tamanio * 1.25).dp)
             .fillMaxWidth()
     ) {
-        ComponenteImagen(id = contenido.imagen, tamanio = tamanio)
+        ComponenteImagenLocal(id = contenido.imagen, tamanio = tamanio)
         Text(
             text = cadena,
             modifier = Modifier.padding(vertical = 2.dp, horizontal = 4.dp),
             fontSize = (tamanio * 0.5).sp,
             color = MaterialTheme.colorScheme.onSecondary,
-            overflow = TextOverflow.Ellipsis,
+            overflow = TextOverflow.Visible,
             maxLines = 3
         )
     }
 }
 
-/**
-* crea una tarjeta con el contenido en vertical
-* @param tamanio cambia el tamaño de la imagen y texto de la tarjeta, predefinido a 40
-*/
-@Composable
-fun ComponenteTarjetaVertical(
-    contenido: Tarjeta,
-    tamanio: Int = 40
-) {
-    Box( modifier = Modifier.clickable(onClick ={contenido.accion()})
-        .background(color = MaterialTheme.colorScheme.secondary)
-        .padding(horizontal = 4.dp,)
-        .width(width = (tamanio*4).dp),
-        contentAlignment = Alignment.Center
-    ){
-        Column (
-            horizontalAlignment = Alignment.CenterHorizontally){
-            ComponenteImagen(id = contenido.imagen, tamanio = (tamanio*4))
-            Text(
-                text = contenido.titulo,
-                modifier = Modifier.padding(horizontal = 4.dp),
-                fontSize = (tamanio).sp,
-                color =MaterialTheme.colorScheme.onSecondary,
-                overflow = TextOverflow.Ellipsis,
-                maxLines = 3
-
-            )
-        }
-    }
-}
-
+///**
+//* crea una tarjeta con el contenido en vertical
+//* @param tamanio cambia el tamaño de la imagen y texto de la tarjeta, predefinido a 40
+//*/
+//@Composable
+//fun ComponenteTarjetaVertical(
+//    contenido: Tarjeta,
+//    tamanio: Int = 40
+//) {
+//    Box( modifier = Modifier.clickable(onClick ={contenido.accion()})
+//        .background(color = MaterialTheme.colorScheme.secondary)
+//        .padding(horizontal = 4.dp,)
+//        .width(width = (tamanio*4).dp),
+//        contentAlignment = Alignment.Center
+//    ){
+//        Column (
+//            horizontalAlignment = Alignment.CenterHorizontally){
+//            ComponenteImagen(id = contenido.imagen, tamanio = (tamanio*4))
+//            Text(
+//                text = contenido.titulo,
+//                modifier = Modifier.padding(horizontal = 4.dp),
+//                fontSize = (tamanio).sp,
+//                color =MaterialTheme.colorScheme.onSecondary,
+//                overflow = TextOverflow.Ellipsis,
+//                maxLines = 3
+//
+//            )
+//        }
+//    }
+//}
+//
 
 @Preview
 @Composable
 fun PrevioTarjHoriz() {
     Column {
-    val contenido = Tarjeta("R.drawable.trivia", titulo = "Trivia")
-
-    ComponenteTarjetaHorizontal(contenido)
-        ComponenteTarjetaVertical(contenido)
+    val contenido = TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10")
+    val contenidoPuntuacion = TarjetaResultado(R.drawable.picaxu, aciertos = "7/10", tiempo = "2:40:22")
+        ComponenteTarjetaHorizontalPersonal(contenido)
+        ComponenteTarjetaPuntuacion(contenidoPuntuacion)
+//        ComponenteTarjetaVertical(contenido)
     }
 }

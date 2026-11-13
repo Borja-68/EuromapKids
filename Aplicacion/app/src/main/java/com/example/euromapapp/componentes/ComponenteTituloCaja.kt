@@ -1,6 +1,8 @@
 package com.example.euromapapp.componentes
 
+import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -17,6 +19,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
+data class DatosTituloCaja(
+   val titulo: String="",
+   val tamanio: Int=20,
+   
+   val accion: () -> Unit = { Log.e("Testeo","tarjeta cliqueada")}
+)
 /**
  * crea un texto con un color de fondo predefinido
  * @param titulo
@@ -48,19 +56,16 @@ fun ComponenteTitulo(
  */
 @Composable
 fun ComponenteTituloCaja(
-    titulo: String,
-    tamanio: Int=20
-){
-    Text(text = titulo,
-        modifier = Modifier.background(MaterialTheme.colorScheme.primary,
-            RoundedCornerShape(topEnd = 12.dp, topStart = 12.dp))
+    componenteTitulo: DatosTituloCaja
+    ){
+    Text(text = componenteTitulo.titulo,
+        modifier = Modifier.background(MaterialTheme.colorScheme.primary)
             .padding(vertical = 6.dp, horizontal = 20.dp)
-            .fillMaxWidth(),
+            .fillMaxWidth().clickable(onClick = {componenteTitulo.accion()}),
         textAlign = TextAlign.Center,
-        fontSize = tamanio.sp,
+        fontSize = componenteTitulo.tamanio.sp,
         color = MaterialTheme.colorScheme.onPrimary,
         fontWeight = FontWeight.Bold,
-
         )
 }
 
@@ -70,10 +75,11 @@ fun ComponenteTituloCaja(
 @Composable
 fun prevComponenteTitulo(){
     val titulo = "Título de prueba"
+    val datotitulo = DatosTituloCaja(titulo = "Título de prueba")
     Column(
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
-        ComponenteTituloCaja(titulo)
+        ComponenteTituloCaja(datotitulo)
         ComponenteTitulo(titulo)
     }
 }

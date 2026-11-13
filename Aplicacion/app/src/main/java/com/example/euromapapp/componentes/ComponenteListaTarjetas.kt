@@ -1,9 +1,11 @@
 package com.example.euromapapp.componentes
 
 
-import ComponenteTarjetaHorizontal
-import ComponenteTarjetaVertical
+import ComponenteTarjetaHorizontalPersonal
+import ComponenteTarjetaPuntuacion
 import Tarjeta
+import TarjetaResultado
+import TarjetaResultadoPerfil
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +26,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.euromapapp.R
 
 /**
  * crea una lista de trajetas que se puede escrolear de manera vertical
@@ -32,8 +35,8 @@ import androidx.compose.ui.unit.dp
  * @param tamanio tamaño de las tarjetas de dentro de la lista
  */
 @Composable
-fun ComponenteListaTarjetasVertical(
-    tarjetas: List<Tarjeta>,
+fun ComponenteListaTarjetasVerticalTipos(
+    tipos: List<DatosTituloCaja>,
     tamanioCaja: Int = 250,
     tamanio: Int = 20
 ) {
@@ -53,62 +56,113 @@ fun ComponenteListaTarjetasVertical(
             verticalArrangement = Arrangement.spacedBy((tamanio * 0.3).dp)
         )
         {
-            items(tarjetas) { tarjeta ->
-                ComponenteTarjetaHorizontal(contenido = tarjeta, tamanio = tamanio)
+            items(tipos) { tipos ->
+                ComponenteTituloCaja(tipos)
             }
         }
     }
 }
 
+
 /**
- * crea una lista de trajetas que se puede escrolear de manera horizontal
+ * crea una lista de trajetas que se puede escrolear de manera vertical
  * @param tarjetas tarjetas que aparecerán en la lista
  * @param tamanioCaja la altura que tendrá donde se contiene la lista
  * @param tamanio tamaño de las tarjetas de dentro de la lista
  */
 @Composable
-fun ComponenteListaTarjetasHorizontal(
-    tarjetas: List<Tarjeta>,
-    tamanioCaja: Int = 100,
+fun ComponenteListaTarjetasVerticalPerfil(
+    tipos: List<TarjetaResultadoPerfil>,
+    tamanioCaja: Int = 250,
     tamanio: Int = 20
 ) {
 
     Box(
         Modifier.background(
-            MaterialTheme.colorScheme.secondary,
-            shape = RoundedCornerShape(
-                topStart = 0.dp,
-                topEnd = 0.dp,
-                bottomStart = 8.dp,
-                bottomEnd = 8.dp
-            )
+            MaterialTheme.colorScheme.primary,
+            RoundedCornerShape(8.dp)
         )
     ) {
 
-        LazyRow(
+        LazyColumn(
             modifier = Modifier
-                .padding(all = (tamanio / 2).dp)
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy((tamanio * 0.5).dp),
-            verticalAlignment = Alignment.CenterVertically
-            )
+                .padding(all = (tamanio/2.5 ).dp)
+                .fillMaxWidth()
+                .height(height = tamanioCaja.dp),
+            verticalArrangement = Arrangement.spacedBy((tamanio * 0.3).dp)
+        )
         {
-            items(tarjetas) { tarjeta ->
-                    ComponenteTarjetaVertical(contenido = tarjeta, tamanio = tamanio)
+            items(tipos) { tipos ->
+                ComponenteTarjetaHorizontalPersonal(tipos)
             }
         }
     }
 }
 
 
+
+//
+///**
+// * crea una lista de trajetas que se puede escrolear de manera horizontal
+// * @param tarjetas tarjetas que aparecerán en la lista
+// * @param tamanioCaja la altura que tendrá donde se contiene la lista
+// * @param tamanio tamaño de las tarjetas de dentro de la lista
+// */
+//@Composable
+//fun ComponenteListaTarjetasHorizontal(
+//    tarjetas: List<Tarjeta>,
+//    tamanioCaja: Int = 100,
+//    tamanio: Int = 20
+//) {
+//
+//    Box(
+//        Modifier.background(
+//            MaterialTheme.colorScheme.secondary,
+//            shape = RoundedCornerShape(
+//                topStart = 0.dp,
+//                topEnd = 0.dp,
+//                bottomStart = 8.dp,
+//                bottomEnd = 8.dp
+//            )
+//        )
+//    ) {
+//
+//        LazyRow(
+//            modifier = Modifier
+//                .padding(all = (tamanio / 2).dp)
+//                .fillMaxWidth(),
+//            horizontalArrangement = Arrangement.spacedBy((tamanio * 0.5).dp),
+//            verticalAlignment = Alignment.CenterVertically
+//            )
+//        {
+//            items(tarjetas) { tarjeta ->
+//                    ComponenteTarjetaVertical(contenido = tarjeta, tamanio = tamanio)
+//            }
+//        }
+//    }
+//}
+
+
 @Preview(showSystemUi = true)
 @Composable
 fun prevComponenteListaTarjetas() {
-    val tarjetas: List<Tarjeta> = listOf(
-
+    val tarjetas: List<TarjetaResultadoPerfil> = listOf(
+        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10")
+    )
+    val tipos: List<DatosTituloCaja> = listOf(
+        DatosTituloCaja("str"),
+        DatosTituloCaja("str")
     )
     Column {
-    ComponenteListaTarjetasVertical(tarjetas);
-    ComponenteListaTarjetasHorizontal(tarjetas)
+    ComponenteListaTarjetasVerticalTipos(tipos);
+        ComponenteListaTarjetasVerticalPerfil(tarjetas)
+//    ComponenteListaTarjetasHorizontal(tarjetas)
     }
 }
