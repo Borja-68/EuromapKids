@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.euromapapp.R
 
-val divisorTamamioImagen=2
+val divisorTamamioImagen=3
 
 /**
  * @param msjBot1 mensaje que aparecera dentro del primer boton
@@ -48,7 +48,7 @@ class DatosBotonDoblePasaImagen(
     var msjBot1: String,
     var msjBot2: String,
     var imagen: Int,
-    var tamanioImagen: Int=60,
+    var tamanioImagen: Int=70,
     var modifierBotones: Modifier= Modifier,
     var accionBoton1: () -> Unit = {},
     var accionBoton2: () -> Unit = {}
@@ -143,7 +143,7 @@ fun BotonesDobleAvanzarLineaTexto(datosBotones: DatosBotonDoblePasaTexto) {
         horizontalArrangement = Arrangement.Center,
     ) {
         Box(
-            modifier = Modifier.weight(0.5f)
+            modifier = Modifier.weight(0.25f)
         ) {
             AvanzarBoton(
                 datosBotones.msjBot1, Modifier
@@ -153,11 +153,11 @@ fun BotonesDobleAvanzarLineaTexto(datosBotones: DatosBotonDoblePasaTexto) {
                 accion = datosBotones.accionBoton1
             )
         }
-        Box(  modifier = Modifier.weight(1f)){
+        Box(  modifier = Modifier.weight(0.5f)){
             ComponenteTitulo(datosBotones.texto,datosBotones.tamanioTexto)
         }
         Box(
-            modifier = Modifier.weight(0.5f)
+            modifier = Modifier.weight(0.25f)
         ) {
             AvanzarBoton(
                 datosBotones.msjBot2, Modifier
@@ -183,7 +183,7 @@ fun BotonesDobleAvanzarLineaImagen(datosBotones: DatosBotonDoblePasaImagen) {
         horizontalArrangement = Arrangement.Center,
     ) {
         Box(
-            modifier = Modifier.weight(0.75f)
+            modifier = Modifier.weight(0.25f)
         ) {
             AvanzarBoton(
                 datosBotones.msjBot1, Modifier
@@ -193,12 +193,12 @@ fun BotonesDobleAvanzarLineaImagen(datosBotones: DatosBotonDoblePasaImagen) {
                 accion = datosBotones.accionBoton1
             )
         }
-        Box(  modifier = Modifier.weight(1f),
+        Box(  modifier = Modifier.weight(0.5f),
             contentAlignment = Alignment.Center){
             ComponenteImagenRedondeadaLocal(datosBotones.imagen, tamanio = datosBotones.tamanioImagen)
         }
         Box(
-            modifier = Modifier.weight(0.75f)
+            modifier = Modifier.weight(0.25f)
         ) {
             AvanzarBoton(
                 datosBotones.msjBot2, Modifier

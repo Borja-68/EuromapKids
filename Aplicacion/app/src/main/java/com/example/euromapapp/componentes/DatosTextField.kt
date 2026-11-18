@@ -174,5 +174,11 @@ fun ComponenteTextFieldContrasena(
 @Composable
 fun PrevComponenteTextField() {
     val mu: MutableState<String> = remember { mutableStateOf(value = "as") }
-    //ComponenteTextField(DatosTextField(txtContenido = mu))
+    var ejemplo= DatosTextField(txtContenido = mu.value)
+    var visible=false
+    ComponenteTextFieldContrasena(
+       ejemplo,
+        visible,
+        onclickIcon = { visible=!visible}
+    )
 }

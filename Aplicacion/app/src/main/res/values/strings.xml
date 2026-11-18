@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">EuromapApp</string>
+    <string name="mensaje_btn_salir_es">Salir</string>
+    <string name="app_login">Log In</string>
+    <string name="app_sign_up">Sign Up</string>
+    <string name="mensaje_contrasena">Introduce contrasena</string>
+    <string name="mensaje_usuario_log_in">Introduce nombre o correo</string>
+    <string name="mensaje_nombre_usuario_sign_up_es">Introduce tu nombre de usuario</string>
+    <string name="mensaje_correo_usuario_sign_up_es">Introduce tu correo</string>
+    <string name="mensaje_contrasena_usuario_sign_up_es">Introduce contraseña</string>
+
 </resources>
