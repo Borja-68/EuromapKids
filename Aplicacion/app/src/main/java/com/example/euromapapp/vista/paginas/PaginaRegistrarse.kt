@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -25,11 +26,13 @@ import com.example.euromapapp.componentes.AceptarBoton
 import com.example.euromapapp.componentes.BotonesAceptarDenegarLinea
 import com.example.euromapapp.componentes.BotonesDobleAvanzarLineaImagen
 import com.example.euromapapp.componentes.BotonesDobleAvanzarLineaTexto
+import com.example.euromapapp.componentes.ComponenteSwitchConTexto
 import com.example.euromapapp.componentes.ComponenteTextField
 import com.example.euromapapp.componentes.ComponenteTextFieldContrasena
 import com.example.euromapapp.componentes.DatosBotonDoble
 import com.example.euromapapp.componentes.DatosBotonDoblePasaImagen
 import com.example.euromapapp.componentes.DatosBotonDoblePasaTexto
+import com.example.euromapapp.componentes.DatosSwitch
 import com.example.euromapapp.componentes.DatosTextField
 import com.example.euromapapp.componentes.DenegarBoton
 
@@ -48,6 +51,7 @@ fun PaginaSignUp(
 //    val uiState by paginaSignUi.uiState.collectAsState()
     var posicionImagen by remember { mutableIntStateOf(0) }
     var posicionIdioma by remember { mutableIntStateOf(0) }
+    var modoOscuro by remember { mutableStateOf(true) }
 
     Box(
         Modifier
@@ -147,6 +151,11 @@ fun PaginaSignUp(
                         posicionImagen = (posicionImagen + 1) % imagenes.size
                     }
                 ))
+
+                ComponenteSwitchConTexto(valor = DatosSwitch(
+                    valor = modoOscuro,
+                    accion = {modoOscuro=!modoOscuro}),
+                    msg = "Modo Oscuro")
             }
 
         }

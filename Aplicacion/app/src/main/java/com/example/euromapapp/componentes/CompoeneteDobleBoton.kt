@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.euromapapp.R
 
-val divisorTamamioImagen=3
+val divisorTamamioImagen=4
 
 /**
  * @param msjBot1 mensaje que aparecera dentro del primer boton
