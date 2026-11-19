@@ -40,8 +40,7 @@ fun ComponenteTitulo(
         modifier = Modifier.background(MaterialTheme.colorScheme.primary,
             shape = CircleShape
         )
-            .padding(vertical = 6.dp, horizontal = 20.dp)
-            .fillMaxWidth(),
+            .padding(vertical = 6.dp, horizontal = 20.dp),
         textAlign = TextAlign.Center,
         fontSize = tamanio.sp,
         color = MaterialTheme.colorScheme.onPrimary,

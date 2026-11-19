@@ -70,7 +70,7 @@ fun PaginaSignUp(
                 verticalArrangement = Arrangement.spacedBy(space = 16.dp),
             ) {
                 BotonesAceptarDenegarLinea(DatosBotonDoble(
-                    "Salir", "Guardar",
+                    "Salir", "Crear",
                     accionBoton1 = onItemClick,
                     accionBoton2 = onSignUpClick
                 ))
@@ -133,10 +133,12 @@ fun PaginaSignUp(
                     msjBot2 = "->",
                     texto = idiomas.get(posicionIdioma),
                     accionBoton1 = {
-                        posicionIdioma = (posicionIdioma - 1 + idiomas.size) % idiomas.size
+                        if(posicionIdioma==0)posicionIdioma = idiomas.size -1
+                        else posicionIdioma -=1
                     },
                     accionBoton2 = {
-                        posicionIdioma = (posicionIdioma + 1) % idiomas.size
+                        if(posicionIdioma==idiomas.size -1) posicionIdioma =0
+                        else posicionIdioma +=1
                     }
                 ))
 
@@ -145,10 +147,12 @@ fun PaginaSignUp(
                     msjBot2 = "->",
                     imagen = imagenes.get(posicionImagen),
                     accionBoton1 = {
-                        posicionImagen = (posicionImagen - 1 + imagenes.size) % imagenes.size
+                        if(posicionImagen==0)posicionImagen=imagenes.size -1
+                        else posicionImagen -=1
                     },
                     accionBoton2 = {
-                        posicionImagen = (posicionImagen + 1) % imagenes.size
+                        if(posicionImagen==imagenes.size -1)posicionImagen=0
+                        else posicionImagen +=1
                     }
                 ))
 

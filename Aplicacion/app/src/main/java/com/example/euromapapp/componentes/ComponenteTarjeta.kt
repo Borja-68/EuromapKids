@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -42,7 +43,13 @@ data class TarjetaResultadoPerfil(
     val accion: () -> Unit = { Log.e("Testeo","tarjeta cliqueada")},
 )
 
-
+data class TarjetaClasificacion(
+    val posicion: Int = 0,
+    val nombreUsuario: String="",
+    val aciertos: String="",
+    val tiempo: String="",
+    val accion: () -> Unit = { Log.e("Testeo","tarjeta cliqueada")},
+)
 data class TarjetaResultado(
     val imagen: Int,
     val aciertos: String="",
@@ -79,7 +86,39 @@ fun ComponenteTarjetaHorizontalPersonal(
             fontSize = (tamanio * 0.5).sp,
             color = MaterialTheme.colorScheme.onSecondary,
             overflow = TextOverflow.Ellipsis,
-            maxLines = 3
+            maxLines = 1
+        )
+    }
+}
+
+
+@Composable
+fun ComponenteTarjetaClasificacion(
+    contenido: TarjetaClasificacion,
+    tamanio: Int = 40
+) {
+    val cadena=  contenido.posicion.toString()+
+            "    Nombre: "+contenido.nombreUsuario+
+            "    Aciertos: "+contenido.aciertos+
+            "    Tiempo: "+contenido.tiempo
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .background(color = MaterialTheme.colorScheme.secondary)
+            .padding(horizontal = 4.dp, vertical = 4.dp)
+            .height(height = (tamanio * 1.25).dp)
+            .fillMaxWidth()
+    ) {
+
+        Text(
+            text = cadena,
+            modifier = Modifier.padding(vertical = 2.dp, horizontal = 4.dp),
+            color = MaterialTheme.colorScheme.onSecondary,
+            fontSize = (tamanio*0.5).sp,
+            overflow = TextOverflow.Ellipsis,
+            maxLines = 1,
+
+
         )
     }
 }
@@ -105,7 +144,7 @@ fun ComponenteTarjetaPuntuacion(
             fontSize = (tamanio * 0.5).sp,
             color = MaterialTheme.colorScheme.onSecondary,
             overflow = TextOverflow.Visible,
-            maxLines = 3
+            maxLines = 1
         )
     }
 }

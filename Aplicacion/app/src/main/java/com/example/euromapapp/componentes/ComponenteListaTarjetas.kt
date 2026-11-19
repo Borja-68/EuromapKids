@@ -1,15 +1,18 @@
 package com.example.euromapapp.componentes
 
 
+import ComponenteTarjetaClasificacion
 import ComponenteTarjetaHorizontalPersonal
 import ComponenteTarjetaPuntuacion
 import Tarjeta
+import TarjetaClasificacion
 import TarjetaResultado
 import TarjetaResultadoPerfil
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -42,6 +45,32 @@ fun ComponenteListaTarjetasVerticalTipos(
 ) {
 
     Box(
+        contentAlignment = Alignment.Center
+    ) {
+
+        LazyColumn(
+            modifier = Modifier
+                .padding(all = (tamanio/2.5 ).dp)
+                .fillMaxWidth()
+                .height(height = tamanioCaja.dp),
+            verticalArrangement = Arrangement.spacedBy((tamanio).dp)
+        )
+        {
+            items(tipos) { tipos ->
+                ComponenteTituloCaja(tipos)
+            }
+        }
+    }
+}
+
+@Composable
+fun ComponenteListaTarjetasVerticalClasificacion(
+    tipos: List<TarjetaClasificacion>,
+    tamanioCaja: Int = 250,
+    tamanio: Int = 20
+) {
+
+    Box(
         Modifier.background(
             MaterialTheme.colorScheme.primary,
             RoundedCornerShape(8.dp)
@@ -57,7 +86,7 @@ fun ComponenteListaTarjetasVerticalTipos(
         )
         {
             items(tipos) { tipos ->
-                ComponenteTituloCaja(tipos)
+                ComponenteTarjetaClasificacion(tipos, tamanio=tamanio)
             }
         }
     }
@@ -93,7 +122,7 @@ fun ComponenteListaTarjetasVerticalPerfil(
         )
         {
             items(tipos) { tipos ->
-                ComponenteTarjetaHorizontalPersonal(tipos)
+                ComponenteTarjetaHorizontalPersonal(tipos,tamanio=tamanio)
             }
         }
     }

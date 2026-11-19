@@ -154,7 +154,7 @@ fun BotonesDobleAvanzarLineaTexto(datosBotones: DatosBotonDoblePasaTexto) {
             )
         }
         Box(  modifier = Modifier.weight(0.5f)){
-            ComponenteTitulo(datosBotones.texto,datosBotones.tamanioTexto)
+            ComponenteTituloCaja(DatosTituloCaja(datosBotones.texto,datosBotones.tamanioTexto))
         }
         Box(
             modifier = Modifier.weight(0.25f)
