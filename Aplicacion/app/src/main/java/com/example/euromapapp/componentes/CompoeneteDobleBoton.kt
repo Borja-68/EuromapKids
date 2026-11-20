@@ -44,6 +44,15 @@ class DatosBotonDoblePasaTexto(
     var accionBoton1: () -> Unit = {},
     var accionBoton2: () -> Unit = {}
 )
+
+class DatosBotonDoblePasaNivel(
+    var msjBot1: String,
+    var msjBot2: String,
+    var modifierBotones: Modifier= Modifier,
+    var tamanioTexto:Int=18,
+    var accionBoton1: () -> Unit = {},
+    var accionBoton2: () -> Unit = {}
+)
 class DatosBotonDoblePasaImagen(
     var msjBot1: String,
     var msjBot2: String,
@@ -158,6 +167,45 @@ fun BotonesDobleAvanzarLineaTexto(datosBotones: DatosBotonDoblePasaTexto) {
         }
         Box(
             modifier = Modifier.weight(0.25f)
+        ) {
+            AvanzarBoton(
+                datosBotones.msjBot2, Modifier
+                    .padding(horizontal = 8.dp)
+                    .fillMaxWidth(),
+                tamanioTexto = datosBotones.tamanioTexto,
+                accion = datosBotones.accionBoton2
+            )
+        }
+    }
+}
+
+
+/**
+ * creación en linea de dos botones con un texto en el centro,
+ * tendrán el mismo tamaño los dos en base al espacio disponible
+ */
+@Composable
+fun BotonesDobleAvanzarNivel(datosBotones: DatosBotonDoblePasaNivel) {
+    Row(
+        modifier = Modifier
+            .padding(vertical = 8.dp, horizontal = 8.dp)
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.Center,
+    ) {
+        Box(
+            modifier = Modifier.weight(0.5f)
+        ) {
+            AvanzarBoton(
+                datosBotones.msjBot1, Modifier
+                    .padding(horizontal = 8.dp)
+                    .fillMaxWidth(),
+                tamanioTexto = datosBotones.tamanioTexto,
+                accion = datosBotones.accionBoton1
+            )
+        }
+
+        Box(
+            modifier = Modifier.weight(0.5f)
         ) {
             AvanzarBoton(
                 datosBotones.msjBot2, Modifier

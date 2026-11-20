@@ -70,7 +70,7 @@ fun ComponenteTarjetaHorizontalPersonal(
             "    Aciertos: "+contenido.aciertos+
             "    Tiempo: "+contenido.tiempo+
             "    Nombre: "+contenido.nombreMapa+
-            "    Nombre: "+contenido.tipo
+            "    Tipo: "+contenido.tipo
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -186,9 +186,9 @@ fun ComponenteTarjetaPuntuacion(
 fun PrevioTarjHoriz() {
     Column {
     val contenido = TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10")
+
     val contenidoPuntuacion = TarjetaResultado(R.drawable.picaxu, aciertos = "7/10", tiempo = "2:40:22")
         ComponenteTarjetaHorizontalPersonal(contenido)
         ComponenteTarjetaPuntuacion(contenidoPuntuacion)
-//        ComponenteTarjetaVertical(contenido)
     }
 }

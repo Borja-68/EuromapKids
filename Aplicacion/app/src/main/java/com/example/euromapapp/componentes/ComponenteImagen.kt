@@ -1,6 +1,8 @@
 package com.example.euromapapp.componentes
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
@@ -62,9 +64,10 @@ fun ComponenteImagenLocal(
 @Composable
 fun ComponenteImagenBaseDatos(
     imagen: ByteArray?,
-    tamanio: Int = 40
+    tamanio: Int = 40,
+    accion: ()-> Unit ={}
 ) {
-
+Box(Modifier.clickable(onClick = accion)){
     AsyncImage(
         model =  imagen,
         modifier = Modifier
@@ -73,6 +76,8 @@ fun ComponenteImagenBaseDatos(
             .clip(shape = RoundedCornerShape(10.dp)),
         contentDescription = "imagen categoria"
     )
+}
+
 
 }
 /**
