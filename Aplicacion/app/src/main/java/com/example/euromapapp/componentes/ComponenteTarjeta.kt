@@ -1,16 +1,10 @@
-import com.example.euromapapp.componentes.ComponenteImagen
-
 import android.util.Log
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.text.TextAutoSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -51,7 +45,7 @@ data class TarjetaClasificacion(
     val accion: () -> Unit = { Log.e("Testeo","tarjeta cliqueada")},
 )
 data class TarjetaResultado(
-    val imagen: Int,
+    val imagen: Int=0,
     val aciertos: String="",
     val tiempo: String="",
     val accion: () -> Unit = { Log.e("Testeo","tarjeta cliqueada")},
@@ -128,7 +122,10 @@ fun ComponenteTarjetaPuntuacion(
     contenido: TarjetaResultado,
     tamanio: Int = 40
 ) {
-    var cadena="  Aciertos: "+contenido.aciertos+"    Tiempo: "+contenido.tiempo
+    var cadena= "Sin Puntuacion"
+    if(!contenido.aciertos.equals("")) {
+        cadena = "  Aciertos: " + contenido.aciertos + "    Tiempo: " + contenido.tiempo
+    }
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
@@ -137,7 +134,10 @@ fun ComponenteTarjetaPuntuacion(
             .height(height = (tamanio * 1.25).dp)
             .fillMaxWidth()
     ) {
-        ComponenteImagenLocal(id = contenido.imagen, tamanio = tamanio)
+        if(!contenido.aciertos.equals("")) {
+            ComponenteImagenLocal(id = contenido.imagen, tamanio = tamanio)
+        }
+
         Text(
             text = cadena,
             modifier = Modifier.padding(vertical = 2.dp, horizontal = 4.dp),
@@ -185,9 +185,9 @@ fun ComponenteTarjetaPuntuacion(
 @Composable
 fun PrevioTarjHoriz() {
     Column {
-    val contenido = TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10")
+    val contenido = TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10")
 
-    val contenidoPuntuacion = TarjetaResultado(R.drawable.picaxu, aciertos = "7/10", tiempo = "2:40:22")
+    val contenidoPuntuacion = TarjetaResultado(R.drawable.avatar_picaxu, aciertos = "7/10", tiempo = "2:40:22")
         ComponenteTarjetaHorizontalPersonal(contenido)
         ComponenteTarjetaPuntuacion(contenidoPuntuacion)
     }

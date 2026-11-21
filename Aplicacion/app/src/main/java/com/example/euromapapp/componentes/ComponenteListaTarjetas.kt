@@ -3,24 +3,16 @@ package com.example.euromapapp.componentes
 
 import ComponenteTarjetaClasificacion
 import ComponenteTarjetaHorizontalPersonal
-import ComponenteTarjetaPuntuacion
-import Tarjeta
 import TarjetaClasificacion
-import TarjetaResultado
 import TarjetaResultadoPerfil
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyRow
-import androidx.compose.foundation.lazy.grid.GridCells
-import androidx.compose.foundation.lazy.grid.LazyHorizontalGrid
-import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
@@ -176,14 +168,14 @@ fun ComponenteListaTarjetasVerticalPerfil(
 @Composable
 fun prevComponenteListaTarjetas() {
     val tarjetas: List<TarjetaResultadoPerfil> = listOf(
-        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10")
+        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10")
     )
     val tipos: List<DatosTituloCaja> = listOf(
         DatosTituloCaja("str"),

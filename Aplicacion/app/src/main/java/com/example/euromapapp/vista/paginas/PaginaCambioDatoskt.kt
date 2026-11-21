@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -21,8 +20,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.euromapapp.R
-import com.example.euromapapp.componentes.AceptarBoton
 import com.example.euromapapp.componentes.BotonesAceptarDenegarLinea
 import com.example.euromapapp.componentes.BotonesDobleAvanzarLineaImagen
 import com.example.euromapapp.componentes.BotonesDobleAvanzarLineaTexto
@@ -34,9 +33,9 @@ import com.example.euromapapp.componentes.DatosBotonDoblePasaImagen
 import com.example.euromapapp.componentes.DatosBotonDoblePasaTexto
 import com.example.euromapapp.componentes.DatosSwitch
 import com.example.euromapapp.componentes.DatosTextField
-import com.example.euromapapp.componentes.DenegarBoton
+import com.example.euromapapp.viewModel.vm.PaginaCambioDatosVM
 
-var imagenesCambio: List<Int> =listOf(R.drawable.picaxu,R.drawable.ic_launcher_background)
+var imagenesCambio: List<Int> =listOf(R.drawable.avatar_picaxu,R.drawable.ic_launcher_background)
 var idiomasCambio: List<String> =listOf("es","en","la")
 
 /**
@@ -44,14 +43,15 @@ var idiomasCambio: List<String> =listOf("es","en","la")
  */
 @Composable
 fun PaginaCambioDatos(
-//    paginaSignUi : PaginaRegistrarseViewModel = viewModel(),
-    onItemClick: () -> Unit,
-    onSignUpClick:()-> Unit
+    paginaCambiaDatosUi : PaginaCambioDatosVM = viewModel(),
+    onItemClick: () -> Unit={},
+    onSignUpClick:()-> Unit={}
 ) {
 //    val uiState by paginaSignUi.uiState.collectAsState()
     var posicionImagen by remember { mutableIntStateOf(0) }
     var posicionIdioma by remember { mutableIntStateOf(0) }
     var modoOscuro by remember { mutableStateOf(true) }
+    val uiState by paginaCambiaDatosUi.uiState.collectAsState()
 
     Box(
         Modifier
@@ -89,9 +89,9 @@ fun PaginaCambioDatos(
                             MaterialTheme.colorScheme.primary,
                             MaterialTheme.colorScheme.onPrimary
                         ),
-                        txtContenido = "a",
+                        txtContenido = uiState.nombre,
                         accion = {
-                            "a"
+                            paginaCambiaDatosUi.setNombre(it)
                         }
                     )
                 )
@@ -104,46 +104,42 @@ fun PaginaCambioDatos(
                             MaterialTheme.colorScheme.primary,
                             MaterialTheme.colorScheme.onPrimary
                         ),
-                        txtContenido = "cadContrasena.value",
+                        txtContenido = uiState.contrasena,
                         accion = {
-                            return@DatosTextField "true"
+                            paginaCambiaDatosUi.setContrasena(it)
                         }
                     ),
-                    onclickIcon = { true },
-                    visible = true
+                    onclickIcon = { paginaCambiaDatosUi.setVisibilidad() },
+                    visible = uiState.contrasenaVisible
                 )
 
                 BotonesDobleAvanzarLineaTexto(datosBotones = DatosBotonDoblePasaTexto(
                     msjBot1 = "<-",
                     msjBot2 = "->",
-                    texto = idiomasCambio.get(posicionIdioma),
+                    texto = uiState.idiomas.get(posicionIdioma),
                     accionBoton1 = {
-                        if(posicionIdioma==0)posicionIdioma = idiomasCambio.size -1
-                        else posicionIdioma -=1
+                        posicionIdioma = paginaCambiaDatosUi.idiomaAnterior(posicionIdioma)
                     },
                     accionBoton2 = {
-                        if(posicionIdioma==idiomasCambio.size -1)posicionIdioma = 0
-                        else posicionIdioma +=1
+                        posicionIdioma = paginaCambiaDatosUi.idiomaSiguiente(posicionIdioma)
                     }
                 ))
 
                 BotonesDobleAvanzarLineaImagen(datosBotones = DatosBotonDoblePasaImagen(
                     msjBot1 = "<-",
                     msjBot2 = "->",
-                    imagen = imagenesCambio.get(posicionImagen),
+                    imagen = uiState.imagenPerfil.get(posicionImagen),
                     accionBoton1 = {
-                        if(posicionImagen==0)posicionImagen=imagenesCambio.size -1
-                        else posicionImagen -=1
+                        posicionImagen = paginaCambiaDatosUi.imagenAnterior(posicionImagen)
                     },
                     accionBoton2 = {
-                        if(posicionImagen==imagenesCambio.size -1)posicionImagen=0
-                        else posicionImagen +=1
+                        posicionImagen = paginaCambiaDatosUi.imagenSiguiente(posicionImagen)
                     }
                 ))
 
                 ComponenteSwitchConTexto(valor = DatosSwitch(
-                    valor = modoOscuro,
-                    accion = {modoOscuro=!modoOscuro}),
+                    valor = uiState.modoOscuro,
+                    accion = {paginaCambiaDatosUi.setModoOscuro()}),
                     msg = "Modo Oscuro")
             }
 

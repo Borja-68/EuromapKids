@@ -8,32 +8,32 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.euromapapp.R
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.euromapapp.componentes.BotonesDobleAceptarColumna
 import com.example.euromapapp.componentes.ComponenteTextField
 import com.example.euromapapp.componentes.ComponenteTextFieldContrasena
 import com.example.euromapapp.componentes.DatosBotonDoble
 import com.example.euromapapp.componentes.DatosTextField
+import com.example.euromapapp.viewModel.vm.PaginaInicioSesionVM
 
 /**
  * Pagina para entrar en tu cuenta ya creada
  */
 @Composable
-fun PaginaLogin(
-    onItemClick: () -> Unit,
-    onSignUpClick:()->Unit,
+fun PaginaInicioSesion(
+    paginaLoginUi : PaginaInicioSesionVM = viewModel(),
+    onItemClick: () -> Unit={},
+    onSignUpClick:()->Unit={},
 ) {
-    val contrasenaVisible: MutableState<Boolean> =remember { mutableStateOf(value = true) }
-    val cadUsuario: MutableState<String> = remember { mutableStateOf(value = "as") }
-    val cadContrasena: MutableState<String> = remember { mutableStateOf(value = "as") }
+    val uiState by paginaLoginUi.uiState.collectAsState()
     Box(
         Modifier
             .fillMaxSize()
@@ -56,10 +56,9 @@ fun PaginaLogin(
                             MaterialTheme.colorScheme.primary,
                             MaterialTheme.colorScheme.onPrimary
                         ),
-                        txtContenido = cadUsuario.value,
+                        txtContenido = uiState.nombreOCorreo,
                         accion = {
-                            cadUsuario.value=it
-                            return@DatosTextField cadUsuario.value
+                            paginaLoginUi.setNombre(it)
                         }
                     )
                 )
@@ -71,14 +70,14 @@ fun PaginaLogin(
                             MaterialTheme.colorScheme.onBackground,
                             MaterialTheme.colorScheme.primary,
                             MaterialTheme.colorScheme.onPrimary),
-                        txtContenido = cadContrasena.value,
+                        txtContenido = uiState.contrasena,
                         accion = {
-                            cadContrasena.value=it
-                            return@DatosTextField cadContrasena.value
+                            paginaLoginUi.setContrasena(it)
+
                         }
                     ),
-                    onclickIcon = {contrasenaVisible.value=!contrasenaVisible.value},
-                    visible = contrasenaVisible.value
+                    onclickIcon = {paginaLoginUi.setVisibilidad()},
+                    visible = uiState.contrasenaVisible
                 )
             }
 
@@ -110,5 +109,9 @@ fun PaginaLogin(
 @Preview(showSystemUi = true)
 @Composable
 fun PrevPaginaLogin() {
-        PaginaLogin(onItemClick = {}, onSignUpClick = {})
+        PaginaInicioSesion(
+            onItemClick = {},
+            onSignUpClick = {}
+        )
 }
+

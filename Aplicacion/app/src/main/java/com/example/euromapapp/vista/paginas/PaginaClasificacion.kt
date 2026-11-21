@@ -1,6 +1,5 @@
 package com.example.euromapapp.vista.paginas
 
-import TarjetaClasificacion
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,47 +10,27 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.euromapapp.componentes.ComponenteListaTarjetasVerticalClasificacion
 import com.example.euromapapp.componentes.ComponenteTitulo
 import com.example.euromapapp.componentes.DenegarBoton
+import com.example.euromapapp.viewModel.vm.PaginaClasificacion
 
-val clasificacion: List<TarjetaClasificacion> =listOf(
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-    TarjetaClasificacion(posicion = 1, nombreUsuario = "as", aciertos = "10/10", tiempo= "200"),
-)
-
+val tamanioCajaClasificacion=500
+val tamanioTextoClasificacion=25
 @Composable
 fun PaginaClasificacion(
-    accionSalida: () -> Unit
+    paginaClasificacionUi : PaginaClasificacion = viewModel(),
+    accionSalida: () -> Unit={}
 )
 {
+    val uiState by paginaClasificacionUi.uiState.collectAsState()
     Box(
         Modifier
             .fillMaxSize()
@@ -69,8 +48,11 @@ fun PaginaClasificacion(
                 modifier = Modifier.fillMaxWidth(),
                 accion = accionSalida
             )
-            ComponenteTitulo(titulo = "Hola")
-            ComponenteListaTarjetasVerticalClasificacion(tipos = clasificacion, tamanioCaja = 500, tamanio = 25)
+            ComponenteTitulo(titulo = uiState.nombremapa)
+            ComponenteListaTarjetasVerticalClasificacion(
+                tipos = uiState.clasificacion,
+                tamanioCaja = tamanioCajaClasificacion,
+                tamanio = tamanioTextoClasificacion)
 
 
         }

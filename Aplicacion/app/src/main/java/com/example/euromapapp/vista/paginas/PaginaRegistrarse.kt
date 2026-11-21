@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -13,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -21,8 +19,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.euromapapp.R
-import com.example.euromapapp.componentes.AceptarBoton
 import com.example.euromapapp.componentes.BotonesAceptarDenegarLinea
 import com.example.euromapapp.componentes.BotonesDobleAvanzarLineaImagen
 import com.example.euromapapp.componentes.BotonesDobleAvanzarLineaTexto
@@ -34,24 +32,21 @@ import com.example.euromapapp.componentes.DatosBotonDoblePasaImagen
 import com.example.euromapapp.componentes.DatosBotonDoblePasaTexto
 import com.example.euromapapp.componentes.DatosSwitch
 import com.example.euromapapp.componentes.DatosTextField
-import com.example.euromapapp.componentes.DenegarBoton
-
-var imagenes: List<Int> =listOf(R.drawable.picaxu,R.drawable.ic_launcher_background)
-var idiomas: List<String> =listOf("es","en","la")
+import com.example.euromapapp.viewModel.vm.PaginaSignUpVM
 
 /**
  * Pagina para crear una nueva cuenta
  */
 @Composable
-fun PaginaSignUp(
-//    paginaSignUi : PaginaRegistrarseViewModel = viewModel(),
-    onItemClick: () -> Unit,
-    onSignUpClick:()-> Unit
+fun PaginaRegistrarse(
+    paginaSignUpUi : PaginaSignUpVM = viewModel(),
+    onItemClick: () -> Unit={},
+    onSignUpClick:()-> Unit={}
 ) {
 //    val uiState by paginaSignUi.uiState.collectAsState()
     var posicionImagen by remember { mutableIntStateOf(0) }
     var posicionIdioma by remember { mutableIntStateOf(0) }
-    var modoOscuro by remember { mutableStateOf(true) }
+    val uiState by paginaSignUpUi.uiState.collectAsState()
 
     Box(
         Modifier
@@ -89,9 +84,9 @@ fun PaginaSignUp(
                             MaterialTheme.colorScheme.primary,
                             MaterialTheme.colorScheme.onPrimary
                         ),
-                        txtContenido = "a",
+                        txtContenido = uiState.nombre,
                         accion = {
-                            "a"
+                            paginaSignUpUi.setNombre(it)
                         }
                     )
                 )
@@ -104,9 +99,9 @@ fun PaginaSignUp(
                             MaterialTheme.colorScheme.primary,
                             MaterialTheme.colorScheme.onPrimary
                         ),
-                        txtContenido = "uiState.stringCorreo",
+                        txtContenido = uiState.correo,
                         accion = {
-                            ""
+                            paginaSignUpUi.setCorreo(it)
                         }
                     )
                 )
@@ -119,46 +114,42 @@ fun PaginaSignUp(
                             MaterialTheme.colorScheme.primary,
                             MaterialTheme.colorScheme.onPrimary
                         ),
-                        txtContenido = "cadContrasena.value",
+                        txtContenido = uiState.contrasena,
                         accion = {
-                            return@DatosTextField "true"
+                            paginaSignUpUi.setContrasena(it)
                         }
                     ),
-                    onclickIcon = { true },
-                    visible = true
+                    onclickIcon = { paginaSignUpUi.setVisibilidad() },
+                    visible = uiState.contrasenaVisible
                 )
 
                 BotonesDobleAvanzarLineaTexto(datosBotones = DatosBotonDoblePasaTexto(
                     msjBot1 = "<-",
                     msjBot2 = "->",
-                    texto = idiomas.get(posicionIdioma),
+                    texto = uiState.idiomas.get(posicionIdioma),
                     accionBoton1 = {
-                        if(posicionIdioma==0)posicionIdioma = idiomas.size -1
-                        else posicionIdioma -=1
+                        posicionIdioma = paginaSignUpUi.idiomaAnterior(posicionIdioma)
                     },
                     accionBoton2 = {
-                        if(posicionIdioma==idiomas.size -1) posicionIdioma =0
-                        else posicionIdioma +=1
+                       posicionIdioma = paginaSignUpUi.idiomaSiguiente(posicionIdioma)
                     }
                 ))
 
                 BotonesDobleAvanzarLineaImagen(datosBotones = DatosBotonDoblePasaImagen(
                     msjBot1 = "<-",
                     msjBot2 = "->",
-                    imagen = imagenes.get(posicionImagen),
+                    imagen = uiState.imagenPerfil.get(posicionImagen),
                     accionBoton1 = {
-                        if(posicionImagen==0)posicionImagen=imagenes.size -1
-                        else posicionImagen -=1
+                       posicionImagen = paginaSignUpUi.imagenAnterior(posicionImagen)
                     },
                     accionBoton2 = {
-                        if(posicionImagen==imagenes.size -1)posicionImagen=0
-                        else posicionImagen +=1
+                       posicionImagen = paginaSignUpUi.imagenSiguiente(posicionImagen)
                     }
                 ))
 
                 ComponenteSwitchConTexto(valor = DatosSwitch(
-                    valor = modoOscuro,
-                    accion = {modoOscuro=!modoOscuro}),
+                    valor = uiState.modoOscuro,
+                    accion = {paginaSignUpUi.setModoOscuro()}),
                     msg = "Modo Oscuro")
             }
 
@@ -170,5 +161,5 @@ fun PaginaSignUp(
 @Preview(showSystemUi = true)
 @Composable
 fun PrevSignUp() {
-        PaginaSignUp(onItemClick = {}, onSignUpClick = {})
+        PaginaRegistrarse(onItemClick = {}, onSignUpClick = {})
 }

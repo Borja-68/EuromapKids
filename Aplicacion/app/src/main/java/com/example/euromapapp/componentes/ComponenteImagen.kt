@@ -120,11 +120,11 @@ fun ComponenteImagenRedondeadaBase(
 @Preview
 @Composable
 fun ImagenPreview() {
-    ComponenteImagenLocal(R.drawable.picaxu)
+    ComponenteImagenLocal(R.drawable.avatar_picaxu)
 }
 
 @Preview
 @Composable
 fun ImagenPreviewRedondeada() {
-    ComponenteImagenRedondeadaLocal(R.drawable.picaxu)
+    ComponenteImagenRedondeadaLocal(R.drawable.avatar_picaxu)
 }
