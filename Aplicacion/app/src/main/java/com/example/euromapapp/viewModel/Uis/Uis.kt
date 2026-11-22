@@ -42,12 +42,12 @@ data class PaginaPerfilUiState(
     val nombreUsuario: String="aitana",
     val correoUsuario: String="aitana@gmail.com",
     val tarjetasUsuario: List<TarjetaResultadoPerfil> = listOf(TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
-        TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.rango_a, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.rango_b, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.rango_c, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.rango_f, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.rango_s, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
+        TarjetaResultadoPerfil(imagen = R.drawable.rango_d, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
         TarjetaResultadoPerfil(imagen = R.drawable.avatar_picaxu, aciertos = "7/10", nombreMapa = "asa", tipo = "es", tiempo = "10:10:10"),
         )
 )

@@ -50,11 +50,11 @@ fun CargaPagina() {
 //                PaginaInicioSesion()
 //                PaginaSeleccionNivel()
 //                PaginaRegistrarse()
-//                PaginaPerfil()
+                PaginaPerfil()
 //                PaginaPrincipal()
 //                PaginaJuego()
 //                PaginaCambioDatos()
-                PaginaClasificacion()
+//                PaginaClasificacion()
 }
 
 @Preview(showBackground = true)
