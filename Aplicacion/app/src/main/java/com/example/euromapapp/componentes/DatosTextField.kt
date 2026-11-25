@@ -23,7 +23,8 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
-
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 
 /**
  * Componente para introducir textos
@@ -156,9 +157,9 @@ fun ComponenteTextFieldContrasena(
                 ) {
                     Icon(
                         imageVector = if (visible)
-                            Icons.Default.Favorite
+                            Icons.Default.Visibility
                         else
-                            Icons.Default.FavoriteBorder,
+                            Icons.Default.VisibilityOff,
                         contentDescription = if (visible)
                             "Ocultar contraseña"
                         else

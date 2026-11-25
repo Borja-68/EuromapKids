@@ -4,7 +4,7 @@ import TarjetaClasificacion
 import TarjetaResultado
 import TarjetaResultadoPerfil
 import com.example.euromapapp.R
-import com.example.euromapapp.componentes.DatosTituloCaja
+import com.example.euromapapp.repositorio.DTO.TipoMapaDTO
 
 data class PaginaJuegoUiState(
     val idMapa: Int = 1,
@@ -14,10 +14,14 @@ data class PaginaJuegoUiState(
     var tiempoFinalMs: Long =0
 )
 
+data class MainUiState(
+    var modoOscuro: Boolean =true
+)
 data class PaginaSeleccionNivelUiState(
-    val idMapa: Int = 1,
-    val nombreMapa: String = "",
-    var imagenMapa: Int = R.drawable.avatar_picaxu,
+    val mapas: List<TipoMapaDTO> = listOf<TipoMapaDTO>(TipoMapaDTO(),
+        TipoMapaDTO(2,R.drawable.rango_c)
+    ),
+    var nombreMapa: String = "",
     var puntuacion: TarjetaResultado = TarjetaResultado()
 )
 
@@ -76,7 +80,6 @@ data class DatosPaginaRegistroUiState(
         .sortedBy { it.name }
         .map { it.getInt(null) },
     var idiomas: List<String> =listOf("es","en","la"),
-    var modoOscuro: Boolean =true
 )
 
 data class DatosPaginaCambioDatosUiState(
@@ -88,13 +91,16 @@ data class DatosPaginaCambioDatosUiState(
         .sortedBy { it.name }
         .map { it.getInt(null) },
     var idiomas: List<String> =listOf("es","en","la"),
-    var modoOscuro: Boolean =true
 )
 
 data class DatosPaginaPrincipalUiState(
-    var tipos: List<DatosTituloCaja> = listOf(DatosTituloCaja(titulo = "Politicos"),
-        DatosTituloCaja(titulo = "Politicos"),
-        DatosTituloCaja(titulo = "Politicos"),
-        DatosTituloCaja(titulo = "Politicos"),
-        DatosTituloCaja(titulo = "Politicos"))
+    var tipos: List<DatosTarjetaPrincipal> = listOf(DatosTarjetaPrincipal(titulo = "Politicos"),
+        DatosTarjetaPrincipal(titulo = "Politicos"),
+        DatosTarjetaPrincipal(titulo = "Politicos"),
+        DatosTarjetaPrincipal(titulo = "Politicos"),
+        DatosTarjetaPrincipal(titulo = "Politicos"))
+)
+
+data class DatosTarjetaPrincipal(
+    var titulo: String
 )

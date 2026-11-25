@@ -1,8 +1,6 @@
 package com.APIeuro.APIeuro.Controladores;
 
-import com.APIeuro.APIeuro.DTO.CreaMapaDTO;
 import com.APIeuro.APIeuro.DTO.CreaNombreMapaDTO;
-import com.APIeuro.APIeuro.DTO.TipoMapaDTO;
 import com.APIeuro.APIeuro.Entidades.Mapa;
 import com.APIeuro.APIeuro.Entidades.NombreMapa;
 import com.APIeuro.APIeuro.Entidades.NombreMapaPK;
@@ -12,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/euroAPI/nombreMapa")
@@ -57,7 +53,7 @@ public class ControladorNombreMapa {
     }
 
     @GetMapping("/{id}-{idioma}")
-    public ResponseEntity<String> obtenerMapasTipo(@PathVariable Integer id,@PathVariable String idioma) {
+    public ResponseEntity<String> obtenerNombreMapa(@PathVariable Integer id, @PathVariable String idioma) {
         if(!servicioMapaNombre.idMapaExiste(id, idioma)) return ResponseEntity.status(HttpStatus.CONFLICT).body("El mapa no tiene ese idioma registrado o no está registrado el mapa");
         return ResponseEntity.status(HttpStatus.CONFLICT).body(servicioMapaNombre.obtenerNombreDelMapa(id,idioma));
     }

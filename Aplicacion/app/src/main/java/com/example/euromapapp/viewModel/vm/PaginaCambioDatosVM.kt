@@ -66,10 +66,4 @@ class PaginaCambioDatosVM (application: Application) : AndroidViewModel(applicat
         return idiomaNuevo
     }
 
-    /**
-     * permite que la contraseña esté oculta o no
-     */
-    fun setModoOscuro() {
-        _uiState.value = _uiState.value.copy(modoOscuro = !uiState.value.modoOscuro)
-    }
 }

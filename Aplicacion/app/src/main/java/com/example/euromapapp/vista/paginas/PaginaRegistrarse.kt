@@ -32,14 +32,18 @@ import com.example.euromapapp.componentes.DatosBotonDoblePasaImagen
 import com.example.euromapapp.componentes.DatosBotonDoblePasaTexto
 import com.example.euromapapp.componentes.DatosSwitch
 import com.example.euromapapp.componentes.DatosTextField
-import com.example.euromapapp.viewModel.vm.PaginaSignUpVM
+import com.example.euromapapp.viewModel.vm.PaginaRegistrarseVM
+import com.example.euromapapp.viewModel.vm.MainViewModel
 
 /**
  * Pagina para crear una nueva cuenta
  */
+
+
 @Composable
 fun PaginaRegistrarse(
-    paginaSignUpUi : PaginaSignUpVM = viewModel(),
+    modoOscuro: MainViewModel,
+    paginaSignUpUi : PaginaRegistrarseVM = viewModel(),
     onItemClick: () -> Unit={},
     onSignUpClick:()-> Unit={}
 ) {
@@ -47,6 +51,8 @@ fun PaginaRegistrarse(
     var posicionImagen by remember { mutableIntStateOf(0) }
     var posicionIdioma by remember { mutableIntStateOf(0) }
     val uiState by paginaSignUpUi.uiState.collectAsState()
+    val modoOscuroState by modoOscuro.uiState.collectAsState()
+    val modoOscuroPrevio= remember {  modoOscuro.getModoOscuro()}
 
     Box(
         Modifier
@@ -66,7 +72,10 @@ fun PaginaRegistrarse(
             ) {
                 BotonesAceptarDenegarLinea(DatosBotonDoble(
                     "Salir", "Crear",
-                    accionBoton1 = onItemClick,
+                    accionBoton1 = {
+                        modoOscuro.setModoOscuroConcreto(modoOscuroPrevio,onItemClick)
+
+                    },
                     accionBoton2 = onSignUpClick
                 ))
             }
@@ -148,8 +157,8 @@ fun PaginaRegistrarse(
                 ))
 
                 ComponenteSwitchConTexto(valor = DatosSwitch(
-                    valor = uiState.modoOscuro,
-                    accion = {paginaSignUpUi.setModoOscuro()}),
+                    valor = modoOscuroState.modoOscuro,
+                    accion = {modoOscuro.setModoOscuro()}),
                     msg = "Modo Oscuro")
             }
 
@@ -161,5 +170,5 @@ fun PaginaRegistrarse(
 @Preview(showSystemUi = true)
 @Composable
 fun PrevSignUp() {
-        PaginaRegistrarse(onItemClick = {}, onSignUpClick = {})
+//        PaginaRegistrarse(onItemClick = {}, onSignUpClick = {})
 }

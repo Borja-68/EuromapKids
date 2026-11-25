@@ -15,4 +15,21 @@ class PaginaSeleccionNivelVM(application: Application) : AndroidViewModel(applic
     private val context: Context?
         get() = getApplication<Application>().applicationContext
 
+    fun mapaAnterior(mapa: Int): Int{
+        var mapaNuevo=mapa
+        if(mapaNuevo==0){mapaNuevo = _uiState.value.mapas.size-1}
+        else {mapaNuevo-=1}
+        return mapaNuevo
+    }
+
+    fun mapaSiguiente(mapa: Int): Int{
+        var mapaNuevo=mapa
+        if(mapaNuevo==_uiState.value.mapas.size-1){mapaNuevo = 0}
+        else {mapaNuevo+=1}
+        return mapaNuevo
+    }
+
+    fun obtenerPosicionMapaId(mapaId: Int): Int{
+        return _uiState.value.mapas.indexOfFirst { it.idMapa==mapaId }
+    }
 }

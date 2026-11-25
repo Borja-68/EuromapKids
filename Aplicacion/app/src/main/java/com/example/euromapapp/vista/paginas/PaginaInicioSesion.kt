@@ -89,13 +89,7 @@ fun PaginaInicioSesion(
                         msjBot1 = stringResource(R.string.app_login),
                         msjBot2 = stringResource(R.string.app_sign_up),
                         modifierBotones = Modifier.fillMaxWidth(),
-                        accionBoton1 =
-                            {
-//                                paginaLoginUi.logIn(
-//                                    onSucces = onItemClick,
-//                                    onError = {}
-//                                )
-                            },
+                        accionBoton1 = onItemClick,
                         accionBoton2 = onSignUpClick
                     )
                 )

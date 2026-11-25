@@ -12,7 +12,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -34,6 +33,7 @@ import com.example.euromapapp.componentes.DatosBotonDoblePasaTexto
 import com.example.euromapapp.componentes.DatosSwitch
 import com.example.euromapapp.componentes.DatosTextField
 import com.example.euromapapp.viewModel.vm.PaginaCambioDatosVM
+import com.example.euromapapp.viewModel.vm.MainViewModel
 
 var imagenesCambio: List<Int> =listOf(R.drawable.avatar_picaxu,R.drawable.ic_launcher_background)
 var idiomasCambio: List<String> =listOf("es","en","la")
@@ -43,15 +43,16 @@ var idiomasCambio: List<String> =listOf("es","en","la")
  */
 @Composable
 fun PaginaCambioDatos(
+    modoOscuro: MainViewModel,
     paginaCambiaDatosUi : PaginaCambioDatosVM = viewModel(),
     onItemClick: () -> Unit={},
-    onSignUpClick:()-> Unit={}
 ) {
 //    val uiState by paginaSignUi.uiState.collectAsState()
     var posicionImagen by remember { mutableIntStateOf(0) }
     var posicionIdioma by remember { mutableIntStateOf(0) }
-    var modoOscuro by remember { mutableStateOf(true) }
     val uiState by paginaCambiaDatosUi.uiState.collectAsState()
+    val modoOscuroState by modoOscuro.uiState.collectAsState()
+    val modoOscuroPrevio= remember {  modoOscuro.getModoOscuro()}
 
     Box(
         Modifier
@@ -71,8 +72,10 @@ fun PaginaCambioDatos(
             ) {
                 BotonesAceptarDenegarLinea(DatosBotonDoble(
                     "Salir", "Guardar",
-                    accionBoton1 = onItemClick,
-                    accionBoton2 = onSignUpClick
+                    accionBoton1 = {
+                        modoOscuro.setModoOscuroConcreto(modoOscuroPrevio,onItemClick)
+                    },
+                    accionBoton2 = onItemClick
                 ))
             }
            
@@ -138,8 +141,8 @@ fun PaginaCambioDatos(
                 ))
 
                 ComponenteSwitchConTexto(valor = DatosSwitch(
-                    valor = uiState.modoOscuro,
-                    accion = {paginaCambiaDatosUi.setModoOscuro()}),
+                    valor = modoOscuroState.modoOscuro,
+                    accion = {modoOscuro.setModoOscuro()}),
                     msg = "Modo Oscuro")
             }
 
@@ -151,5 +154,5 @@ fun PaginaCambioDatos(
 @Preview(showSystemUi = true)
 @Composable
 fun PaginaCambioDatos() {
-        PaginaCambioDatos(onItemClick = {}, onSignUpClick = {})
+//        PaginaCambioDatos(onItemClick = {})
 }

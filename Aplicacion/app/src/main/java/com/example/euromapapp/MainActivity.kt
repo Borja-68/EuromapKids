@@ -11,12 +11,18 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.compose.rememberNavController
 import com.example.euromapapp.ui.theme.EuromapAppTheme
+import com.example.euromapapp.viewModel.vm.MainViewModel
+import com.example.euromapapp.vista.navigation.EuromapNavGraph
 import com.example.euromapapp.vista.paginas.PaginaCambioDatos
 import com.example.euromapapp.vista.paginas.PaginaClasificacion
 import com.example.euromapapp.vista.paginas.PaginaInicioSesion
@@ -31,13 +37,14 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            EuromapAppTheme {
-                val correctas = remember { mutableIntStateOf(0) }
-                val incorrectas = remember { mutableIntStateOf(0) }
-                val tiempoFinalMs = remember { mutableLongStateOf(0L) }
+            val viewMain: MainViewModel =viewModel()
+            val uiState by viewMain.uiState.collectAsState()
+
+            EuromapAppTheme(darkTheme = uiState.modoOscuro) {
+                val navController = rememberNavController()
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Box(Modifier.fillMaxSize().padding(innerPadding)) {
-                        CargaPagina()
+                        EuromapNavGraph(navController = navController, viewMain = viewMain)
                     }
                 }
             }

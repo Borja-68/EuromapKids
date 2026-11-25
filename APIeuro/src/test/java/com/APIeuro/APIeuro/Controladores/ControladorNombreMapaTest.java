@@ -71,14 +71,14 @@ class ControladorNombreMapaTest {
 
     @Test void obtenerNombreDevuelveConflictoSiNoExiste() {
         when(nombres.idMapaExiste(5, "en")).thenReturn(false);
-        assertEquals(409, controlador.obtenerMapasTipo(5, "en").getStatusCode().value());
+        assertEquals(409, controlador.obtenerNombreMapa(5, "en").getStatusCode().value());
         verify(nombres, never()).obtenerNombreDelMapa(anyInt(), anyString());
     }
 
     @Test void obtenerNombreDevuelveElNombreRegistrado() {
         when(nombres.idMapaExiste(5, "en")).thenReturn(true);
         when(nombres.obtenerNombreDelMapa(5, "en")).thenReturn("Spain");
-        var respuesta = controlador.obtenerMapasTipo(5, "en");
+        var respuesta = controlador.obtenerNombreMapa(5, "en");
         assertEquals(409, respuesta.getStatusCode().value());
         assertEquals("Spain", respuesta.getBody());
     }

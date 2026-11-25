@@ -46,18 +46,19 @@ fun ComponenteImagen(
 @Composable
 fun ComponenteImagenLocal(
     id: Int,
-    tamanio: Int = 40
+    tamanio: Int = 40,
+    onClick: () -> Unit ={}
 ) {
-
-    Image(
-        painter = painterResource(id = id),
-        modifier = Modifier
-            .size(width = tamanio.dp, height = tamanio.dp)
-            .padding(vertical = 2.dp, horizontal = 2.dp)
-            .clip(shape = RoundedCornerShape(10.dp)),
-        contentDescription = "imagen categoria"
-    )
-
+    Box(Modifier.clickable(onClick = onClick)) {
+        Image(
+            painter = painterResource(id = id),
+            modifier = Modifier
+                .size(width = tamanio.dp, height = tamanio.dp)
+                .padding(vertical = 2.dp, horizontal = 2.dp)
+                .clip(shape = RoundedCornerShape(10.dp)),
+            contentDescription = "imagen categoria"
+        )
+    }
 }
 
 

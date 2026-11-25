@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.ViewModel
@@ -17,12 +20,12 @@ import com.example.euromapapp.viewModel.vm.PaginaPerfilVM
 @Composable
 fun PaginaJuego(
     idMapa: Int = 1,
-    idioma:String ="es",
+    tipoMapa:String ="la",
     paginaJuegoUi : PaginaJuegoVM = viewModel(),
-    accionFin: (String) -> Unit={},
+    accionFin: (String,Int) -> Unit={_,_->},
 ) {
     paginaJuegoUi.cargarIdiomaYMapa(
-        idioma = idioma,
+        idioma = "es",
         idMapa = idMapa
     )
     val uiState by paginaJuegoUi.uiState.collectAsState()
@@ -32,16 +35,17 @@ fun PaginaJuego(
         modifier = Modifier.fillMaxSize(),
         onCorrectas = { uiState.correctas = it },
         onIncorrectas = { uiState.Incorrectas = it },
-        onTiempoFinalizado = { uiState.tiempoFinalMs = it }
+        onTiempoFinalizado = { tiempoMs ->
+            if (tiempoMs > 0L) {
+                uiState.tiempoFinalMs=tiempoMs
+                accionFin(tipoMapa, idMapa)
+            }
+        }
     )
-
-    if(uiState.tiempoFinalMs!= 0.toLong()){
-        accionFin
-    }
 }
 
 @Preview(showSystemUi = true)
 @Composable
 fun PaginaJuegoPreview() {
-    PaginaJuego(accionFin = {  })
+    PaginaJuego()
 }

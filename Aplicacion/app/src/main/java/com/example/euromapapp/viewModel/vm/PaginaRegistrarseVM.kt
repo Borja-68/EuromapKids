@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class PaginaSignUpVM(application: Application) : AndroidViewModel(application) {
+class PaginaRegistrarseVM(application: Application) : AndroidViewModel(application) {
     private val _uiState = MutableStateFlow(DatosPaginaRegistroUiState())
     val uiState: StateFlow<DatosPaginaRegistroUiState> = _uiState.asStateFlow()
     private val context: Context?
@@ -73,10 +73,4 @@ class PaginaSignUpVM(application: Application) : AndroidViewModel(application) {
         return idiomaNuevo
     }
 
-    /**
-     * permite que la contraseña esté oculta o no
-     */
-    fun setModoOscuro() {
-        _uiState.value = _uiState.value.copy(modoOscuro = !uiState.value.modoOscuro)
-    }
 }

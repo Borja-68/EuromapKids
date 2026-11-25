@@ -26,8 +26,10 @@ val tamanioCajaClasificacion=500
 val tamanioTextoClasificacion=25
 @Composable
 fun PaginaClasificacion(
+    tipo: String ="",
+    idMapa: Int =0,
     paginaClasificacionUi : PaginaClasificacion = viewModel(),
-    accionSalida: () -> Unit={}
+    accionSalida: (Int,String) -> Unit={_,_ ->}
 )
 {
     val uiState by paginaClasificacionUi.uiState.collectAsState()
@@ -46,7 +48,7 @@ fun PaginaClasificacion(
         ) {
             DenegarBoton(msj = "Salir",
                 modifier = Modifier.fillMaxWidth(),
-                accion = accionSalida
+                accion = {accionSalida(idMapa,tipo)}
             )
             ComponenteTitulo(titulo = uiState.nombremapa)
             ComponenteListaTarjetasVerticalClasificacion(
@@ -62,5 +64,5 @@ fun PaginaClasificacion(
 @Preview(showSystemUi = true)
 @Composable
 fun PaginaClasificacionPreview() {
-    PaginaClasificacion(accionSalida = {  })
+    PaginaClasificacion()
 }

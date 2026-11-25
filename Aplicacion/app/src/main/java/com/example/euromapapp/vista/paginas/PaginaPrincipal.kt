@@ -28,7 +28,8 @@ val tamanioTextoPrincipal=40
 @Composable
 fun PaginaPrincipal(
     paginaPrincipalUi : PaginaPrincipalVM = viewModel(),
-    accionClick: () -> Unit={}
+    onItemClick: (String,Int) -> Unit={_,_ ->}
+
 ){
     val uiState by paginaPrincipalUi.uiState.collectAsState()
     Box(
@@ -39,9 +40,16 @@ fun PaginaPrincipal(
         contentAlignment = Alignment.Center
     ) {
 
-        ComponenteListaTarjetasVerticalTipos(tipos = uiState.tipos,
+        ComponenteListaTarjetasVerticalTipos(
+            tipos = uiState.tipos.map {
+                DatosTituloCaja(
+                    titulo = it.titulo,
+                    accion = {onItemClick(it.titulo,0)}
+                )
+            },
             tamanioCaja = tamanioCajaPrincipal,
             tamanio = tamanioTextoPrincipal,
+
             )
     }
 
@@ -51,5 +59,5 @@ fun PaginaPrincipal(
 @Preview(showSystemUi = true)
 @Composable
 fun PrevPaginaPrincipal() {
-    PaginaPrincipal(accionClick = {})
+    PaginaPrincipal()
 }
