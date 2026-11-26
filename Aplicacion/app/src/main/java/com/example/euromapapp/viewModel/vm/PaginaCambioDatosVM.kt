@@ -69,6 +69,7 @@ class PaginaCambioDatosVM (application: Application) : AndroidViewModel(applicat
     }
 
     fun obtenerPosicionIdioma(idioma: String): Int{
-        return _uiState.value.idiomas.indexOfFirst { it==idioma }
+        val posicion =_uiState.value.idiomas.indexOfFirst { it==idioma }
+        return if(posicion==-1)0 else posicion
     }
 }

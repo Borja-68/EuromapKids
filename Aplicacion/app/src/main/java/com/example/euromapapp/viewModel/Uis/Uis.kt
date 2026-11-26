@@ -26,9 +26,14 @@ data class MainUiState(
     val accionRegreso: () -> Unit={}
 )
 data class PaginaSeleccionNivelUiState(
-    val mapas: List<TipoMapaDTO> = listOf<TipoMapaDTO>(TipoMapaDTO(),
-        TipoMapaDTO(2,R.drawable.rango_c)
-    ),
+    val mapas: List<TipoMapaDTO> = listOf<TipoMapaDTO>(
+        TipoMapaDTO(idMapa = 1 , imagenMapa = R.drawable.avatar_picaxu),
+        TipoMapaDTO(2,R.drawable.rango_c),
+        TipoMapaDTO(idMapa = 3 , imagenMapa = R.drawable.rango_a),
+        TipoMapaDTO(idMapa = 4 , imagenMapa = R.drawable.rango_b),
+        TipoMapaDTO(idMapa = 5 , imagenMapa = R.drawable.rango_s),
+
+        ),
     var nombreMapa: String = "",
     var puntuacion: PuntuacionDTO = PuntuacionDTO(
         rango = 'a',

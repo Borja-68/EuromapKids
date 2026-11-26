@@ -50,8 +50,7 @@ fun PaginaSeleccionNivel(
     onClickClasificacion: (Int,String)-> Unit={_, _ ->}
 ) {
     val uiState by paginaSeleccionNivelUi.uiState.collectAsState()
-    var posicionMapa by remember { mutableIntStateOf(0) }
-    if(idMapa !=0) posicionMapa = paginaSeleccionNivelUi.obtenerPosicionMapaId(mapaId = idMapa)
+    var posicionMapa by remember { mutableIntStateOf(paginaSeleccionNivelUi.obtenerPosicionMapaId(mapaId = idMapa))  }
 
     Box(
         Modifier

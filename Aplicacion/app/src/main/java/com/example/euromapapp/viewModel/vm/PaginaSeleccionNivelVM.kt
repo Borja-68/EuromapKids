@@ -31,7 +31,8 @@ class PaginaSeleccionNivelVM(application: Application) : AndroidViewModel(applic
     }
 
     fun obtenerPosicionMapaId(mapaId: Int): Int{
-        return _uiState.value.mapas.indexOfFirst { it.idMapa==mapaId }
+        val posicion = _uiState.value.mapas.indexOfFirst { it.idMapa == mapaId }
+        return if(posicion==-1) 0 else posicion
     }
 
     fun drawableParaRango(char: Char): Int {

@@ -189,8 +189,8 @@ fun EuromapNavGraph(navController: NavHostController, viewMain: MainViewModel) {
 
         composable(
             route = Routes.paginaClasificacion,
-            arguments = listOf(navArgument("idMapa") { type = NavType.IntType }
-                ,navArgument("idMapa") {type = NavType.StringType}
+            arguments = listOf(navArgument("idMapa") { type = NavType.IntType },
+                navArgument("tipoMapa") {type = NavType.StringType}
             )
         ) {backStackEntry ->
             val idMapa = backStackEntry.arguments?.getInt("idMapa") ?: return@composable
