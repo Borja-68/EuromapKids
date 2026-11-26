@@ -21,11 +21,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.euromapapp.componentes.BotonesClasificacionJugar
 import com.example.euromapapp.componentes.BotonesDobleAvanzarNivel
 import com.example.euromapapp.componentes.ComponenteImagenLocal
+import com.example.euromapapp.componentes.ComponenteImagenMapaSeleccion
 import com.example.euromapapp.componentes.ComponenteTitulo
 import com.example.euromapapp.componentes.ComponenteTituloCaja
+import com.example.euromapapp.componentes.DatosBotonDobleClasificacionJugar
 import com.example.euromapapp.componentes.DatosBotonDoblePasaNivel
+import com.example.euromapapp.componentes.DatosComponenteImagenMapaSeleccion
 import com.example.euromapapp.componentes.DatosTituloCaja
 import com.example.euromapapp.componentes.DenegarBoton
 import com.example.euromapapp.viewModel.vm.PaginaSeleccionNivelVM
@@ -62,14 +66,20 @@ fun PaginaSeleccionNivel(
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            ComponenteTitulo(
-                titulo = uiState.nombreMapa,
-                tamanio = tamanioTextoNombreMapaSeleccion
-            )
-            ComponenteImagenLocal(
-                id = uiState.mapas.get(posicionMapa).imagenMapa,
-                tamanio = tamanioImagenMapaSeleccion,
-                onClick = { accionClickImagen(uiState.mapas.get(posicionMapa).idMapa,tipo) }
+            ComponenteImagenMapaSeleccion(
+                datos = DatosComponenteImagenMapaSeleccion(
+                    modifier = Modifier,
+                    id = uiState.mapas.get(posicionMapa).imagenMapa,
+                    nombre = uiState.nombreMapa,
+                    total = uiState.mapas.size,
+                    posicion = posicionMapa,
+                    onAnterior = {
+                        posicionMapa = paginaSeleccionNivelUi.mapaAnterior(posicionMapa)
+                    },
+                    onSiguiente = {
+                        posicionMapa= paginaSeleccionNivelUi.mapaSiguiente(posicionMapa)
+                    }
+                )
             )
 
 
@@ -81,27 +91,31 @@ fun PaginaSeleccionNivel(
                 ),
                 tamanio = tamanioPuntuacionMapaSeleccion)
 
-            ComponenteTituloCaja(
-                componenteTitulo = DatosTituloCaja(
-                    titulo = paginaSeleccionNivelUi.obtenerString("titulo_clasificacion",idioma),
-                    tamanio = tamanioMirarClasificacionSeleccion,
-                    accion = {onClickClasificacion(uiState.mapas.get(posicionMapa).idMapa,tipo)}
-                )
-            )
+                BotonesClasificacionJugar(
+                    datos = DatosBotonDobleClasificacionJugar(
+                        modifier = Modifier,
+                        msjJugar = paginaSeleccionNivelUi.obtenerString("boton_juego", idioma),
+                        accionJugar = {
+                            accionClickImagen(
+                                uiState.mapas.get(posicionMapa).idMapa,
+                                tipo
+                            )
+                        },
+                        msjClasificacion = paginaSeleccionNivelUi.obtenerString(
+                            "titulo_clasificacion",
+                            idioma
+                        ),
+                        accionClasificacion = {
+                            onClickClasificacion(
+                                uiState.mapas.get(posicionMapa).idMapa,
+                                tipo
+                            )
+                        },
+                        habilitado = true
+                    )
 
-            BotonesDobleAvanzarNivel(
-                datosBotones = DatosBotonDoblePasaNivel(
-                    msjBot1 = "<-",
-                    msjBot2 = "->",
-                    tamanioTexto = tamanioMirarClasificacionSeleccion,
-                    accionBoton1 = {
-                       posicionMapa= paginaSeleccionNivelUi.mapaAnterior(posicionMapa)
-                    },
-                    accionBoton2 ={
-                        posicionMapa= paginaSeleccionNivelUi.mapaSiguiente(posicionMapa)
-                    }
                 )
-            )
+
         }
     }
 }

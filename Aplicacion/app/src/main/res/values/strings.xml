@@ -19,12 +19,13 @@
     <string name="titulo_tipomapa_rios_es">Rios</string>
     <string name="titulo_tipomapa_banderas_es">Banderas</string>
     <string name="titulo_juego_es">Juego</string>
+    <string name="boton_juego_es">Jugar</string>
     <string name="titulo_idioma_es">Español</string>
     <string name="titulo_idioma_en">English</string>
 
 
 
-
+    <string name="boton_juego_en">Play</string>
     <string name="titulo_tipomapa_rios_en">Rivers</string>
     <string name="titulo_tipomapa_banderas_en">Flags</string>
     <string name="titulo_clasificacion_en">Ranking</string>

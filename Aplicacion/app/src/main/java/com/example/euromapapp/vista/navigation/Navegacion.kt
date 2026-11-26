@@ -180,6 +180,7 @@ fun EuromapNavGraph(navController: NavHostController, viewMain: MainViewModel) {
             PaginaJuego(
                 idMapa = idMapa,
                 tipoMapa=tipoMapa,
+                idioma = viewMain.getIdioma(),
                 accionFin = {tipoMapa,idMapa ->
                     navController.navigate("seleccionNivel/$tipoMapa/$idMapa")
                 }

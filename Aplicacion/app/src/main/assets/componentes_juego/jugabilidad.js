@@ -1,8 +1,31 @@
-const currentLang = document.body.dataset.lang || 'es';
+const currentLang = (document.body.dataset.lang || 'es').toLowerCase();
+const mensajesPorIdioma = {
+    es: {
+        seleccionaRegion: 'Selecciona una región',
+        buscaRegion: nombre => `Busca en el mapa: ${nombre}`,
+        correcto: '¡Correcto!',
+        fallaste: '¡Fallaste!',
+        mapaCompletado: 'Mapa completado',
+        faltanRegiones: regiones => `Faltan regiones en el SVG: ${regiones}`,
+        mapaSinRegiones: 'No se encontraron regiones enlazadas con este mapa'
+    },
+    en: {
+        seleccionaRegion: 'Select a region',
+        buscaRegion: nombre => `Find this on the map: ${nombre}`,
+        correcto: 'Correct!',
+        fallaste: 'Incorrect!',
+        mapaCompletado: 'Map completed',
+        faltanRegiones: regiones => `Regions are missing from the SVG: ${regiones}`,
+        mapaSinRegiones: 'No regions linked to this map were found'
+    }
+};
+const mensajes = mensajesPorIdioma[currentLang] || mensajesPorIdioma.es;
+document.documentElement.lang = mensajesPorIdioma[currentLang] ? currentLang : 'es';
 const provinciasData = JSON.parse(document.getElementById('map-data').textContent);
 const infoBox = document.getElementById('info-box');
 const timerBox = document.getElementById('timer-box');
 const svg = document.querySelector('#map-container svg');
+infoBox.textContent = mensajes.seleccionaRegion;
 let respuestasCorrectas = 0;
 let respuestasIncorrectas = 0;
 let inicioTimer = 0;
@@ -99,9 +122,9 @@ function mezclar(regiones) {
 }
 
 if (regionesSinForma.length > 0) {
-    infoBox.textContent = `Faltan regiones en el SVG: ${regionesSinForma.join(', ')}`;
+    infoBox.textContent = mensajes.faltanRegiones(regionesSinForma.join(', '));
 } else if (secuenciaRegiones.length === 0) {
-    infoBox.textContent = 'No se encontraron regiones enlazadas con este mapa';
+    infoBox.textContent = mensajes.mapaSinRegiones;
 } else {
     let indiceRegion = 0;
     let respuestaAcertada = false;
@@ -125,7 +148,7 @@ if (regionesSinForma.length > 0) {
                     elemento.classList.add('correcta');
                 });
                 respuestaAcertada = true;
-                infoBox.textContent = '¡Correcto!';
+                infoBox.textContent = mensajes.correcto;
                 if (indiceRegion === secuenciaRegiones.length - 1) detenerTimer();
                 window.setTimeout(avanzarRegion, 900);
             } else {
@@ -139,7 +162,7 @@ if (regionesSinForma.length > 0) {
                 const nombre = provinciasData[regionObjetivoId].name[currentLang] ||
                     provinciasData[regionObjetivoId].name.es || regionObjetivoId;
                 respuestaAcertada = true;
-                infoBox.textContent = `¡Fallaste!`;
+                infoBox.textContent = mensajes.fallaste;
                 if (indiceRegion === secuenciaRegiones.length - 1) detenerTimer();
                 window.setTimeout(avanzarRegion, 1200);
             }
@@ -156,7 +179,7 @@ if (regionesSinForma.length > 0) {
         const regionObjetivoId = secuenciaRegiones[indiceRegion];
         const regionObjetivo = provinciasData[regionObjetivoId];
         const nombre = regionObjetivo.name[currentLang] || regionObjetivo.name.es || regionObjetivoId;
-        infoBox.textContent = `Busca en el mapa: ${nombre}`;
+        infoBox.textContent = mensajes.buscaRegion(nombre);
     }
 
     function avanzarRegion() {
@@ -167,7 +190,7 @@ if (regionesSinForma.length > 0) {
             if (window.AndroidBridge) {
                 window.AndroidBridge.onTiempoFinalizado(tiempoFinalMs);
             }
-            infoBox.textContent = 'Mapa completado';
+            infoBox.textContent = mensajes.mapaCompletado;
             return;
         }
         mostrarObjetivo();

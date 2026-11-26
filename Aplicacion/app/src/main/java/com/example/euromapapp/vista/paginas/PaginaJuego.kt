@@ -21,11 +21,12 @@ import com.example.euromapapp.viewModel.vm.PaginaPerfilVM
 fun PaginaJuego(
     idMapa: Int = 1,
     tipoMapa:String ="la",
+    idioma: String="es",
     paginaJuegoUi : PaginaJuegoVM = viewModel(),
     accionFin: (String,Int) -> Unit={_,_->},
 ) {
     paginaJuegoUi.cargarIdiomaYMapa(
-        idioma = "es",
+        idioma = idioma,
         idMapa = idMapa
     )
     val uiState by paginaJuegoUi.uiState.collectAsState()

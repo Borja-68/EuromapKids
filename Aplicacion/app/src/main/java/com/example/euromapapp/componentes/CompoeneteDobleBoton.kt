@@ -5,12 +5,26 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.BarChart
+import androidx.compose.material.icons.filled.PlayArrow
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Text
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.euromapapp.R
 
 val divisorTamamioImagen=4
@@ -30,6 +44,15 @@ class DatosBotonDoble(
     var tamanioTexto:Int=18,
     var accionBoton1: () -> Unit = {},
     var accionBoton2: () -> Unit = {}
+)
+
+class DatosBotonDobleClasificacionJugar(
+    val msjClasificacion: String,
+    val msjJugar: String,
+    val accionClasificacion: () -> Unit,
+    val accionJugar: () -> Unit,
+    val modifier: Modifier = Modifier,
+    var habilitado: Boolean = true
 )
 
 class DatosBotonDoblePasaTexto(
@@ -277,6 +300,59 @@ fun BotonesDobleAceptarColumna(datosBotones: DatosBotonDoble) {
             modifier = datosBotones.modifierBotones,
             tamanioTexto = datosBotones.tamanioTexto,
             accion = datosBotones.accionBoton2)
+    }
+}
+
+/** Fila de acciones inferior para la selección de mapa. */
+@Composable
+fun BotonesClasificacionJugar(
+    datos: DatosBotonDobleClasificacionJugar
+) {
+    val azulClaro = Color(0xFFA9C8FF)
+    val azulOscuro = Color(0xFF062449)
+
+    Row(
+        modifier = datos.modifier
+            .fillMaxWidth()
+            .padding(horizontal = 16.dp, vertical = 12.dp),
+        horizontalArrangement = Arrangement.spacedBy(12.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        OutlinedButton(
+            onClick = datos.accionClasificacion,
+            enabled = datos.habilitado,
+            modifier = Modifier.weight(1f).height(72.dp),
+            shape = CircleShape,
+            border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.outline),
+            colors = ButtonDefaults.outlinedButtonColors(
+                contentColor = azulClaro
+            )
+        ) {
+            Icon(Icons.Default.BarChart, contentDescription = null)
+            Text(
+                text = datos.msjClasificacion,
+                modifier = Modifier.padding(start = 8.dp),
+                fontSize = 18.sp
+            )
+        }
+
+        Button(
+            onClick = datos.accionJugar,
+            enabled = datos.habilitado,
+            modifier = Modifier.weight(1f).height(72.dp),
+            shape = CircleShape,
+            colors = ButtonDefaults.buttonColors(
+                containerColor = azulClaro,
+                contentColor = azulOscuro
+            )
+        ) {
+            Icon(Icons.Default.PlayArrow, contentDescription = null)
+            Text(
+                text = datos.msjJugar,
+                modifier = Modifier.padding(start = 8.dp),
+                fontSize = 18.sp
+            )
+        }
     }
 }
 
