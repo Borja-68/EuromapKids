@@ -17,9 +17,12 @@ import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.example.euromapapp.componentes.ComponenteTopBar
+import com.example.euromapapp.componentes.ComponenteTopBarAtras
 import com.example.euromapapp.ui.theme.EuromapAppTheme
 import com.example.euromapapp.viewModel.vm.MainViewModel
 import com.example.euromapapp.vista.navigation.EuromapNavGraph
@@ -42,7 +45,26 @@ class MainActivity : ComponentActivity() {
 
             EuromapAppTheme(darkTheme = uiState.modoOscuro) {
                 val navController = rememberNavController()
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize(),
+                    topBar = {
+                        if(uiState.topbarMain){
+                            ComponenteTopBar(
+                                title = stringResource(R.string.app_name),
+                                accionPerfil = { navController.navigate("perfil") },
+                                accionCerrarSesion = { navController.navigate("login") }
+                            )
+                        }
+                        if(uiState.topbarAccionAtras){
+                            ComponenteTopBarAtras(
+                                title = viewMain.obtenerString(
+                                    viewMain.getMensaje(),
+                                    viewMain.getIdioma()
+                                ),
+                                accionAtras = uiState.accionRegreso
+                            )
+                        }
+
+                    }) { innerPadding ->
                     Box(Modifier.fillMaxSize().padding(innerPadding)) {
                         EuromapNavGraph(navController = navController, viewMain = viewMain)
                     }

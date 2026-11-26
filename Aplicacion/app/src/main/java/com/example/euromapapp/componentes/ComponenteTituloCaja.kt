@@ -48,6 +48,19 @@ fun ComponenteTitulo(
         )
 }
 
+@Composable
+fun ComponenteTituloSinFondo(
+    titulo: String,
+    tamanio: Int=20
+){
+    Text(text = titulo,
+        modifier = Modifier.padding(vertical = 6.dp, horizontal = 20.dp),
+        textAlign = TextAlign.Center,
+        fontSize = tamanio.sp,
+        color = MaterialTheme.colorScheme.onPrimary,
+        fontWeight = FontWeight.Bold,
+    )
+}
 /**
  * crea un texto dentro de una caja con color
  * @param titulo

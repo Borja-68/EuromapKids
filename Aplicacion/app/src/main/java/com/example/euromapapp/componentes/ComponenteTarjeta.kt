@@ -1,5 +1,6 @@
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -60,28 +61,39 @@ fun ComponenteTarjetaHorizontalPersonal(
     contenido: TarjetaResultadoPerfil,
     tamanio: Int = 40
 ) {
-    var cadena=
-            "    Aciertos: "+contenido.aciertos+
-            "    Tiempo: "+contenido.tiempo+
+    var cadenaMapa=
             "    Nombre: "+contenido.nombreMapa+
             "    Tipo: "+contenido.tipo
+
+    var cadenaResultado =
+            "    Aciertos: "+contenido.aciertos+
+            "    Tiempo: "+contenido.tiempo
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
             .background(color = MaterialTheme.colorScheme.secondary)
             .padding(horizontal = 4.dp, vertical = 4.dp)
-            .height(height = (tamanio * 1.25).dp)
             .fillMaxWidth()
     ) {
-        ComponenteImagenLocal(id = contenido.imagen, tamanio = tamanio)
-        Text(
-            text = cadena,
-            modifier = Modifier.padding(vertical = 2.dp, horizontal = 4.dp),
-            fontSize = (tamanio * 0.5).sp,
-            color = MaterialTheme.colorScheme.onSecondary,
-            overflow = TextOverflow.Ellipsis,
-            maxLines = 1
-        )
+        ComponenteImagenLocal(id = contenido.imagen, tamanio = tamanio*2)
+        Column() {
+            Text(
+                text = cadenaMapa,
+                modifier = Modifier.padding(vertical = 2.dp, horizontal = 4.dp),
+                fontSize = (tamanio * 0.5).sp,
+                color = MaterialTheme.colorScheme.onSecondary,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
+            )
+            Text(
+                text = cadenaResultado,
+                modifier = Modifier.padding(vertical = 2.dp, horizontal = 4.dp),
+                fontSize = (tamanio * 0.5).sp,
+                color = MaterialTheme.colorScheme.onSecondary,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
+            )
+        }
     }
 }
 

@@ -1,6 +1,7 @@
 package com.example.euromapapp.vista.paginas
 
 import ComponenteTarjetaPuntuacion
+import TarjetaResultado
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -37,10 +38,10 @@ val tamanioMirarClasificacionSeleccion=20
 
 @Composable
 fun PaginaSeleccionNivel(
+    idioma: String="",
     tipo: String="",
     idMapa: Int =0,
     paginaSeleccionNivelUi : PaginaSeleccionNivelVM = viewModel(),
-    accionSalida: () -> Unit={},
     accionClickImagen: (Int,String) -> Unit={_, _ ->},
     onClickClasificacion: (Int,String)-> Unit={_, _ ->}
 ) {
@@ -61,11 +62,6 @@ fun PaginaSeleccionNivel(
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            DenegarBoton(
-                msj = "Salir",
-                modifier = Modifier.fillMaxWidth(),
-                accion = accionSalida
-            )
             ComponenteTitulo(
                 titulo = uiState.nombreMapa,
                 tamanio = tamanioTextoNombreMapaSeleccion
@@ -78,11 +74,16 @@ fun PaginaSeleccionNivel(
 
 
             ComponenteTarjetaPuntuacion(
-                contenido = uiState.puntuacion,
+                contenido = TarjetaResultado(
+                    imagen = paginaSeleccionNivelUi.drawableParaRango(uiState.puntuacion.rango),
+                    tiempo = uiState.puntuacion.tiempo,
+                    aciertos = uiState.puntuacion.aciertos
+                ),
                 tamanio = tamanioPuntuacionMapaSeleccion)
 
             ComponenteTituloCaja(
-                componenteTitulo = DatosTituloCaja(titulo = "Mirar Clasificacion",
+                componenteTitulo = DatosTituloCaja(
+                    titulo = paginaSeleccionNivelUi.obtenerString("titulo_clasificacion",idioma),
                     tamanio = tamanioMirarClasificacionSeleccion,
                     accion = {onClickClasificacion(uiState.mapas.get(posicionMapa).idMapa,tipo)}
                 )
@@ -110,5 +111,5 @@ fun PaginaSeleccionNivel(
 @Preview(showSystemUi = true)
 @Composable
 fun PrevPaginaSeleccionNivel() {
-    PaginaSeleccionNivel(accionSalida = {})
+    PaginaSeleccionNivel()
 }

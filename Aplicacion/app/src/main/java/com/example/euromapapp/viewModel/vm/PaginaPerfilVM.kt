@@ -7,14 +7,15 @@ import androidx.lifecycle.AndroidViewModel
 import com.example.euromapapp.viewModel.Uis.PaginaJuegoUiState
 import com.example.euromapapp.viewModel.Uis.PaginaPerfilUiState
 import com.example.euromapapp.viewModel.interfaces.Decompilador64
+import com.example.euromapapp.viewModel.interfaces.RecursosString
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class PaginaPerfilVM(application: Application) : AndroidViewModel(application), Decompilador64 {
+class PaginaPerfilVM(application: Application) : AndroidViewModel(application), Decompilador64, RecursosString {
     private val _uiState = MutableStateFlow(PaginaPerfilUiState())
     val uiState: StateFlow<PaginaPerfilUiState> = _uiState.asStateFlow()
-    private val context: Context?
+    override val context: Context
         get() = getApplication<Application>().applicationContext
 
 
@@ -23,4 +24,12 @@ class PaginaPerfilVM(application: Application) : AndroidViewModel(application), 
         return Base64.decode(contenido, Base64.DEFAULT)
     }
 
+    fun drawableParaRango(char: Char): Int {
+        val app = getApplication<Application>()
+        return app.resources.getIdentifier(
+            "rango_${char.lowercaseChar()}",
+            "drawable",
+            app.packageName
+        )
+    }
 }

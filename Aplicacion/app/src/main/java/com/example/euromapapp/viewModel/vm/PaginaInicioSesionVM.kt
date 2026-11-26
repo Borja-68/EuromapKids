@@ -4,14 +4,15 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import com.example.euromapapp.viewModel.Uis.DatosPaginaLoginUiState
+import com.example.euromapapp.viewModel.interfaces.RecursosString
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class PaginaInicioSesionVM(application: Application) : AndroidViewModel(application) {
+class PaginaInicioSesionVM(application: Application) : AndroidViewModel(application), RecursosString {
     private val _uiState = MutableStateFlow(DatosPaginaLoginUiState())
     val uiState: StateFlow<DatosPaginaLoginUiState> = _uiState.asStateFlow()
-    private val context: Context?
+    override val context: Context
         get() = getApplication<Application>().applicationContext
 
 

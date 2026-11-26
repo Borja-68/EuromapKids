@@ -27,6 +27,7 @@ val tamanioCajaPrincipal=500
 val tamanioTextoPrincipal=40
 @Composable
 fun PaginaPrincipal(
+    idioma: String="",
     paginaPrincipalUi : PaginaPrincipalVM = viewModel(),
     onItemClick: (String,Int) -> Unit={_,_ ->}
 
@@ -43,7 +44,10 @@ fun PaginaPrincipal(
         ComponenteListaTarjetasVerticalTipos(
             tipos = uiState.tipos.map {
                 DatosTituloCaja(
-                    titulo = it.titulo,
+                    titulo = paginaPrincipalUi.obtenerString(
+                        nombre = "titulo_tipomapa_"+it.titulo.lowercase(),
+                        idioma = idioma
+                    ),
                     accion = {onItemClick(it.titulo,0)}
                 )
             },

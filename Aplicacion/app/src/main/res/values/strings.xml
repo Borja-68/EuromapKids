@@ -1,12 +1,56 @@
 <resources>
-    <string name="app_name">EuromapApp</string>
+    <string name="app_name">EuromapKids</string>
+    <string name="submensaje_app_name_es">Aprende geografía jugando</string>
     <string name="mensaje_btn_salir_es">Salir</string>
-    <string name="app_login">Log In</string>
-    <string name="app_sign_up">Sign Up</string>
-    <string name="mensaje_contrasena">Introduce contrasena</string>
-    <string name="mensaje_usuario_log_in">Introduce nombre o correo</string>
+    <string name="mensaje_btn_guardar_es">Guardar</string>
+    <string name="mensaje_btn_crear_es">Crear cuenta</string>
+    <string name="app_login_es">Iniciar Sesion</string>
+    <string name="app_sign_up_es">Registrarse</string>
+    <string name="mensaje_usuario_log_in_es">Introduce nombre o correo</string>
     <string name="mensaje_nombre_usuario_sign_up_es">Introduce tu nombre de usuario</string>
     <string name="mensaje_correo_usuario_sign_up_es">Introduce tu correo</string>
-    <string name="mensaje_contrasena_usuario_sign_up_es">Introduce contraseña</string>
+    <string name="mensaje_contrasena_usuario_es">Introduce contraseña</string>
+    <string name="mensaje_caja_clasificacion_es">Mirar Clasificacion</string>
+    <string name="mensaje_modo_oscuro_es">Modo oscuro</string>
+    <string name="mensaje_boton_edicion_es">Cambiar mis datos</string>
+    <string name="titulo_perfil_es">Perfil</string>
+    <string name="titulo_clasificacion_es">Clasificacion</string>
+    <string name="titulo_tipomapa_politicos_es">Politico</string>
+    <string name="titulo_tipomapa_rios_es">Rios</string>
+    <string name="titulo_tipomapa_banderas_es">Banderas</string>
+    <string name="titulo_juego_es">Juego</string>
+    <string name="titulo_idioma_es">Español</string>
+    <string name="titulo_idioma_en">English</string>
+
+
+
+
+    <string name="titulo_tipomapa_rios_en">Rivers</string>
+    <string name="titulo_tipomapa_banderas_en">Flags</string>
+    <string name="titulo_clasificacion_en">Ranking</string>
+    <string name="titulo_perfil_en">Profile</string>
+    <string name="mensaje_boton_edicion_en">Change my data</string>
+    <string name="mensaje_modo_oscuro_en">Dark mode</string>
+    <string name="titulo_juego_en">Game</string>
+    <string name="titulo_tipomapa_politicos_en">Political</string>
+    <string name="mensaje_contrasena_usuario_en">Put your password</string>
+    <string name="mensaje_correo_usuario_sign_up_en">Put your email</string>
+    <string name="mensaje_caja_clasificacion_en">Look Ranking</string>
+    <string name="mensaje_nombre_usuario_sign_up_en">Put your username</string>
+    <string name="mensaje_usuario_log_in_en">Put username or email</string>
+    <string name="app_sign_up_en">Sign Up</string>
+    <string name="app_login_en">Log In</string>
+    <string name="mensaje_btn_crear_en">Create account</string>
+    <string name="mensaje_btn_guardar_en">Save</string>
+    <string name="mensaje_btn_salir_en">Exit</string>
+    <string name="submensaje_app_name_en">Learn geography playing</string>
+
+
+
+
+
+
+
+
 
 </resources>

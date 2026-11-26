@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -16,18 +17,16 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.euromapapp.R
-import com.example.euromapapp.componentes.BotonesAceptarDenegarLinea
+import com.example.euromapapp.componentes.AceptarBoton
 import com.example.euromapapp.componentes.BotonesDobleAvanzarLineaImagen
 import com.example.euromapapp.componentes.BotonesDobleAvanzarLineaTexto
 import com.example.euromapapp.componentes.ComponenteSwitchConTexto
 import com.example.euromapapp.componentes.ComponenteTextField
 import com.example.euromapapp.componentes.ComponenteTextFieldContrasena
-import com.example.euromapapp.componentes.DatosBotonDoble
 import com.example.euromapapp.componentes.DatosBotonDoblePasaImagen
 import com.example.euromapapp.componentes.DatosBotonDoblePasaTexto
 import com.example.euromapapp.componentes.DatosSwitch
@@ -43,17 +42,19 @@ var idiomasCambio: List<String> =listOf("es","en","la")
  */
 @Composable
 fun PaginaCambioDatos(
-    modoOscuro: MainViewModel,
+    main: MainViewModel,
     paginaCambiaDatosUi : PaginaCambioDatosVM = viewModel(),
     onItemClick: () -> Unit={},
 ) {
-//    val uiState by paginaSignUi.uiState.collectAsState()
-    var posicionImagen by remember { mutableIntStateOf(0) }
-    var posicionIdioma by remember { mutableIntStateOf(0) }
     val uiState by paginaCambiaDatosUi.uiState.collectAsState()
-    val modoOscuroState by modoOscuro.uiState.collectAsState()
-    val modoOscuroPrevio= remember {  modoOscuro.getModoOscuro()}
+    val modoOscuroState by main.uiState.collectAsState()
 
+    var posicionImagen by remember { mutableIntStateOf(0) }
+    var posicionIdioma by remember { mutableIntStateOf(paginaCambiaDatosUi.obtenerPosicionIdioma(main.getIdioma())) }
+
+    val idioma = uiState.idiomas.get(posicionIdioma)
+
+    main.setIdioma(idioma)
     Box(
         Modifier
             .fillMaxSize()
@@ -67,25 +68,16 @@ fun PaginaCambioDatos(
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            Column(
-                verticalArrangement = Arrangement.spacedBy(space = 16.dp),
-            ) {
-                BotonesAceptarDenegarLinea(DatosBotonDoble(
-                    "Salir", "Guardar",
-                    accionBoton1 = {
-                        modoOscuro.setModoOscuroConcreto(modoOscuroPrevio,onItemClick)
-                    },
-                    accionBoton2 = onItemClick
-                ))
-            }
-           
 
 
-
-            Column(verticalArrangement = Arrangement.spacedBy(space = 16.dp)) {
+            Column(verticalArrangement = Arrangement.spacedBy(space = 16.dp))
+            {
                 ComponenteTextField(
                     DatosTextField(
-                        msjPregunta = stringResource(R.string.mensaje_nombre_usuario_sign_up_es),
+                        msjPregunta = paginaCambiaDatosUi.obtenerString(
+                            nombre = "mensaje_nombre_usuario_sign_up",
+                            idioma = idioma
+                        ),
                         listaColor = listOf(
                             MaterialTheme.colorScheme.background,
                             MaterialTheme.colorScheme.onBackground,
@@ -100,7 +92,10 @@ fun PaginaCambioDatos(
                 )
                 ComponenteTextFieldContrasena(
                     DatosTextField(
-                        stringResource(R.string.mensaje_contrasena_usuario_sign_up_es),
+                        msjPregunta = paginaCambiaDatosUi.obtenerString(
+                            nombre = "mensaje_contrasena_usuario",
+                            idioma = idioma
+                        ),
                         listaColor = listOf(
                             MaterialTheme.colorScheme.background,
                             MaterialTheme.colorScheme.onBackground,
@@ -116,10 +111,11 @@ fun PaginaCambioDatos(
                     visible = uiState.contrasenaVisible
                 )
 
-                BotonesDobleAvanzarLineaTexto(datosBotones = DatosBotonDoblePasaTexto(
+                BotonesDobleAvanzarLineaTexto(
+                    datosBotones = DatosBotonDoblePasaTexto(
                     msjBot1 = "<-",
                     msjBot2 = "->",
-                    texto = uiState.idiomas.get(posicionIdioma),
+                    texto = paginaCambiaDatosUi.obtenerString(nombre = "titulo_idioma", idioma = uiState.idiomas.get(posicionIdioma)),
                     accionBoton1 = {
                         posicionIdioma = paginaCambiaDatosUi.idiomaAnterior(posicionIdioma)
                     },
@@ -128,7 +124,8 @@ fun PaginaCambioDatos(
                     }
                 ))
 
-                BotonesDobleAvanzarLineaImagen(datosBotones = DatosBotonDoblePasaImagen(
+                BotonesDobleAvanzarLineaImagen(
+                    datosBotones = DatosBotonDoblePasaImagen(
                     msjBot1 = "<-",
                     msjBot2 = "->",
                     imagen = uiState.imagenPerfil.get(posicionImagen),
@@ -140,12 +137,22 @@ fun PaginaCambioDatos(
                     }
                 ))
 
-                ComponenteSwitchConTexto(valor = DatosSwitch(
-                    valor = modoOscuroState.modoOscuro,
-                    accion = {modoOscuro.setModoOscuro()}),
-                    msg = "Modo Oscuro")
-            }
+                ComponenteSwitchConTexto(
+                    valor = DatosSwitch(
+                        valor = modoOscuroState.modoOscuro,
+                        accion = { main.setModoOscuro() }),
+                    msg = paginaCambiaDatosUi.obtenerString(
+                        nombre = "mensaje_modo_oscuro",
+                        idioma = idioma
+                    )
+                )
 
+                AceptarBoton(
+                    msj = paginaCambiaDatosUi.obtenerString("mensaje_btn_guardar", idioma),
+                    accion = onItemClick,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
         }
     }
 }
@@ -154,5 +161,5 @@ fun PaginaCambioDatos(
 @Preview(showSystemUi = true)
 @Composable
 fun PaginaCambioDatos() {
-//        PaginaCambioDatos(onItemClick = {})
+       PaginaCambioDatos()
 }

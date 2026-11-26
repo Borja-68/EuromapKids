@@ -4,14 +4,16 @@ import android.app.Application
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import com.example.euromapapp.viewModel.Uis.DatosPaginaCambioDatosUiState
+import com.example.euromapapp.viewModel.interfaces.RecursosString
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class PaginaCambioDatosVM (application: Application) : AndroidViewModel(application){
+class PaginaCambioDatosVM (application: Application) : AndroidViewModel(application),
+    RecursosString {
     private val _uiState = MutableStateFlow(DatosPaginaCambioDatosUiState())
     val uiState: StateFlow<DatosPaginaCambioDatosUiState> = _uiState.asStateFlow()
-    private val context: Context?
+    override val context: Context
         get() = getApplication<Application>().applicationContext
 
 
@@ -66,4 +68,7 @@ class PaginaCambioDatosVM (application: Application) : AndroidViewModel(applicat
         return idiomaNuevo
     }
 
+    fun obtenerPosicionIdioma(idioma: String): Int{
+        return _uiState.value.idiomas.indexOfFirst { it==idioma }
+    }
 }

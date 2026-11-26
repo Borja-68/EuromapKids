@@ -5,14 +5,15 @@ import android.content.Context
 import androidx.lifecycle.AndroidViewModel
 import com.example.euromapapp.viewModel.Uis.DatosPaginaPrincipalUiState
 import com.example.euromapapp.viewModel.Uis.PaginaSeleccionNivelUiState
+import com.example.euromapapp.viewModel.interfaces.RecursosString
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class PaginaSeleccionNivelVM(application: Application) : AndroidViewModel(application) {
+class PaginaSeleccionNivelVM(application: Application) : AndroidViewModel(application), RecursosString {
     private val _uiState = MutableStateFlow(PaginaSeleccionNivelUiState())
     val uiState: StateFlow<PaginaSeleccionNivelUiState> = _uiState.asStateFlow()
-    private val context: Context?
+    override val context: Context
         get() = getApplication<Application>().applicationContext
 
     fun mapaAnterior(mapa: Int): Int{
@@ -31,5 +32,14 @@ class PaginaSeleccionNivelVM(application: Application) : AndroidViewModel(applic
 
     fun obtenerPosicionMapaId(mapaId: Int): Int{
         return _uiState.value.mapas.indexOfFirst { it.idMapa==mapaId }
+    }
+
+    fun drawableParaRango(char: Char): Int {
+        val app = getApplication<Application>()
+        return app.resources.getIdentifier(
+            "rango_${char.lowercaseChar()}",
+            "drawable",
+            app.packageName
+        )
     }
 }

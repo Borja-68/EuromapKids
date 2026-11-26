@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.euromapapp.R
+import com.example.euromapapp.componentes.AceptarBoton
 import com.example.euromapapp.componentes.ComponenteImagenRedondeadaLocal
 import com.example.euromapapp.componentes.ComponenteListaTarjetasVerticalPerfil
 import com.example.euromapapp.componentes.ComponenteTitulo
@@ -31,7 +32,7 @@ val tamanioTarjetaPerfil=20
 @Composable
 fun PaginaPerfil(
     paginaPerfilUi : PaginaPerfilVM = viewModel(),
-    accionSalida: () -> Unit={}
+    accionCambioDatos: () -> Unit={}
 ){
     val uiState by paginaPerfilUi.uiState.collectAsState()
     Box(
@@ -47,10 +48,6 @@ fun PaginaPerfil(
             horizontalAlignment = Alignment.CenterHorizontally
 
         ) {
-            DenegarBoton(msj = "Salir",
-                modifier = Modifier.fillMaxWidth(),
-                accion = accionSalida
-            )
 
             ComponenteImagenRedondeadaLocal(
                 id = uiState.imagenPerfil,
@@ -58,8 +55,20 @@ fun PaginaPerfil(
             )
             ComponenteTitulo(uiState.nombreUsuario)
             ComponenteTitulo(uiState.correoUsuario)
+            AceptarBoton(
+                msj = paginaPerfilUi.obtenerString("mensaje_boton_edicion","es"),
+                accion = accionCambioDatos
+            )
             ComponenteListaTarjetasVerticalPerfil(
-                tipos = uiState.tarjetasUsuario,
+                tipos = uiState.tarjetasUsuario.map {
+                    TarjetaResultadoPerfil(
+                    imagen = paginaPerfilUi.drawableParaRango(it.rango),
+                    tipo = it.tipo,
+                    tiempo = it.tiempo,
+                    aciertos = it.aciertos,
+                    nombreMapa = it.nombreMapa
+                    )
+                },
                 tamanio = tamanioTarjetaPerfil
             )
         }
@@ -70,5 +79,5 @@ fun PaginaPerfil(
 @Preview(showSystemUi = true)
 @Composable
 fun PrevPaginaPerfil() {
-    PaginaPerfil(accionSalida = {})
+    PaginaPerfil()
 }

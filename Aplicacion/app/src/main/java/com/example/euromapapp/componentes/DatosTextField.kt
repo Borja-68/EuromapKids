@@ -25,6 +25,7 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.material.icons.filled.Visibility
 import androidx.compose.material.icons.filled.VisibilityOff
+import androidx.compose.material3.OutlinedTextField
 
 /**
  * Componente para introducir textos
@@ -66,7 +67,7 @@ class DatosTextFieldLista(
 @Composable
 fun ComponenteTextField(datos: DatosTextField) {
 
-    TextField(
+    OutlinedTextField(
         colors = TextFieldDefaults.colors(
             focusedContainerColor = datos.listaColor.get(0),
             unfocusedContainerColor = datos.listaColor.get(0),
@@ -95,7 +96,7 @@ fun ComponenteTextFieldLista(datos: DatosTextFieldLista) {
         MaterialTheme.colorScheme.onPrimary
     )
 
-    TextField(
+    OutlinedTextField(
         colors = TextFieldDefaults.colors(
             focusedContainerColor = datos.listaColor.get(0),
             unfocusedContainerColor = datos.listaColor.get(0),
@@ -133,7 +134,7 @@ fun ComponenteTextFieldContrasena(
         MaterialTheme.colorScheme.onPrimary
     )
 
-    TextField(
+    OutlinedTextField(
         colors = TextFieldDefaults.colors(
             focusedContainerColor = datos.listaColor.get(0),
             unfocusedContainerColor = datos.listaColor.get(0),
