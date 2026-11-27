@@ -21,10 +21,18 @@
     <string name="titulo_juego_es">Juego</string>
     <string name="boton_juego_es">Jugar</string>
     <string name="titulo_idioma_es">Español</string>
+    <string name="msj_puntuacion_es">Mi Puntuacion</string>
+    <string name="msj_aciertos_es">Aciertos</string>
+    <string name="msj_tiempo_es">Tiempo</string>
+    <string name="msj_nombre_es">Nombre</string>
+    <string name="msj_tipo_es">Tipo</string>
+
+    <string name="msj_tipo_en">Type</string>
+    <string name="msj_nombre_en">Name</string>
+    <string name="msj_aciertos_en">Score</string>
+    <string name="msj_tiempo_en">Time</string>
+    <string name="msj_puntuacion_en">My Score</string>
     <string name="titulo_idioma_en">English</string>
-
-
-
     <string name="boton_juego_en">Play</string>
     <string name="titulo_tipomapa_rios_en">Rivers</string>
     <string name="titulo_tipomapa_banderas_en">Flags</string>

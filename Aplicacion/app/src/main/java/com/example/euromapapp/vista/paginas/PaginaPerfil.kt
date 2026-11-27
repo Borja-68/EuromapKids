@@ -27,10 +27,11 @@ import com.example.euromapapp.viewModel.vm.PaginaPerfilVM
 import com.example.euromapapp.viewModel.vm.PaginaPrincipalVM
 
 val tamanioImagenPerfil=150
-val tamanioTarjetaPerfil=20
+val tamanioTarjetaPerfil=30
 
 @Composable
 fun PaginaPerfil(
+    idioma: String="",
     paginaPerfilUi : PaginaPerfilVM = viewModel(),
     accionCambioDatos: () -> Unit={}
 ){
@@ -56,12 +57,16 @@ fun PaginaPerfil(
             ComponenteTitulo(uiState.nombreUsuario)
             ComponenteTitulo(uiState.correoUsuario)
             AceptarBoton(
-                msj = paginaPerfilUi.obtenerString("mensaje_boton_edicion","es"),
+                msj = paginaPerfilUi.obtenerString("mensaje_boton_edicion",idioma),
                 accion = accionCambioDatos
             )
             ComponenteListaTarjetasVerticalPerfil(
                 tipos = uiState.tarjetasUsuario.map {
                     TarjetaResultadoPerfil(
+                    msjAciertos = paginaPerfilUi.obtenerString("msj_aciertos",idioma),
+                    msjTiempo = paginaPerfilUi.obtenerString("msj_tiempo",idioma),
+                    msjNombre = paginaPerfilUi.obtenerString("msj_nombre",idioma),
+                    msjTipo = paginaPerfilUi.obtenerString("msj_tipo",idioma),
                     imagen = paginaPerfilUi.drawableParaRango(it.rango),
                     tipo = it.tipo,
                     tiempo = it.tiempo,

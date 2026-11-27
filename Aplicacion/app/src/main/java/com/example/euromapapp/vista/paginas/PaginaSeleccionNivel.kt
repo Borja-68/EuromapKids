@@ -36,7 +36,7 @@ import com.example.euromapapp.viewModel.vm.PaginaSeleccionNivelVM
 
 val tamanioTextoNombreMapaSeleccion=40
 val tamanioImagenMapaSeleccion=400
-val tamanioPuntuacionMapaSeleccion=35
+val tamanioPuntuacionMapaSeleccion=50
 val tamanioMirarClasificacionSeleccion=20
 
 
@@ -60,7 +60,7 @@ fun PaginaSeleccionNivel(
         contentAlignment = Alignment.TopEnd
     ) {
         Column(
-            verticalArrangement = Arrangement.spacedBy(space = 24.dp),
+            verticalArrangement = Arrangement.spacedBy(space = 40.dp),
             modifier = Modifier.padding(vertical = 24.dp, horizontal = 24.dp),
             horizontalAlignment = Alignment.CenterHorizontally
 
@@ -84,6 +84,9 @@ fun PaginaSeleccionNivel(
 
             ComponenteTarjetaPuntuacion(
                 contenido = TarjetaResultado(
+                    msjArriba = paginaSeleccionNivelUi.obtenerString("msj_puntuacion",idioma),
+                    msjAciertos = paginaSeleccionNivelUi.obtenerString("msj_aciertos",idioma),
+                    msjTiempo = paginaSeleccionNivelUi.obtenerString("msj_tiempo",idioma),
                     imagen = paginaSeleccionNivelUi.drawableParaRango(uiState.puntuacion.rango),
                     tiempo = uiState.puntuacion.tiempo,
                     aciertos = uiState.puntuacion.aciertos

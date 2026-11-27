@@ -63,6 +63,7 @@ fun EuromapNavGraph(navController: NavHostController, viewMain: MainViewModel) {
             viewMain.setMensaje("titulo_perfil")
 
             PaginaPerfil(
+                idioma = viewMain.getIdioma(),
                 accionCambioDatos = {
                     navController.navigate("cambio")
                 }
