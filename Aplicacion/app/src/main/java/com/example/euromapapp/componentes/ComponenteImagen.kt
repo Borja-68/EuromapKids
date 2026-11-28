@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.ChevronLeft
 import androidx.compose.material.icons.filled.ChevronRight
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -67,14 +68,16 @@ fun ComponenteImagenLocal(
     id: Int,
     tamanio: Int = 40,
     onClick: () -> Unit = {},
+    color: Color= Color.Transparent,
     modifier: Modifier = Modifier.size(tamanio.dp),
     contentScale: ContentScale = ContentScale.Fit,
     forma: Shape = RoundedCornerShape(10.dp)
 ) {
-    Box(modifier.clickable(onClick = onClick)) {
+    Box(modifier) {
         Image(
             painter = painterResource(id = id),
             modifier = Modifier
+                .background(color=color)
                 .fillMaxSize()
                 .padding(vertical = 2.dp, horizontal = 2.dp)
                 .clip(forma),

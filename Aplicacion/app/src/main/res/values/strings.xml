@@ -26,7 +26,12 @@
     <string name="msj_tiempo_es">Tiempo</string>
     <string name="msj_nombre_es">Nombre</string>
     <string name="msj_tipo_es">Tipo</string>
+    <string name="submsj_tipo_es">Toca para ver sus mapas</string>
 
+
+
+
+    <string name="submsj_tipo_en">Touch to see its maps</string>
     <string name="msj_tipo_en">Type</string>
     <string name="msj_nombre_en">Name</string>
     <string name="msj_aciertos_en">Score</string>

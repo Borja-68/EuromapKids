@@ -1,5 +1,7 @@
 import android.util.Log
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -7,11 +9,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.fitInside
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -19,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.euromapapp.R
 import com.example.euromapapp.componentes.ComponenteImagenLocal
+import kotlin.math.round
 
 /**
  *@param imagen la imagen de la tarjeta
@@ -41,6 +47,14 @@ data class TarjetaResultadoPerfil(
     val nombreMapa: String="",
     val aciertos: String="",
     val tiempo: String="",
+    val accion: () -> Unit = { Log.e("Testeo","tarjeta cliqueada")},
+)
+
+data class TarjetaPrincipal(
+    val colorImagen: Color =Color.Transparent,
+    val imagen: Int,
+    val msjNombreTipo: String="",
+    val msjInferior: String="",
     val accion: () -> Unit = { Log.e("Testeo","tarjeta cliqueada")},
 )
 
@@ -107,6 +121,53 @@ fun ComponenteTarjetaHorizontalPersonal(
     }
 }
 
+
+
+/**
+ * crea una tarjeta con el contenido en horizontal
+ * @param tamanio cambia el tamaño de la imagen y texto de la tarjeta, predefinido a 40
+ */
+@Composable
+fun ComponenteTarjetaHorizontalPrincipal(
+    contenido: TarjetaPrincipal,
+    tamanio: Int = 40
+) {
+
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .clip(RoundedCornerShape(10.dp))
+            .background(color = MaterialTheme.colorScheme.secondary)
+            .padding(horizontal = 4.dp, vertical = 4.dp)
+            .fillMaxWidth()
+            .clickable(onClick = contenido.accion)
+
+    ) {
+        ComponenteImagenLocal(
+            id = contenido.imagen,
+            tamanio = (tamanio*1.5).toInt(),
+            color = contenido.colorImagen)
+        Column(Modifier.fillMaxWidth()) {
+            Text(
+                text = contenido.msjNombreTipo,
+                modifier = Modifier.padding(vertical = 2.dp, horizontal = 4.dp),
+                fontSize = (tamanio * 0.5).sp,
+                color = MaterialTheme.colorScheme.onSecondary,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
+
+            )
+            Text(
+                text = contenido.msjInferior,
+                modifier = Modifier.padding(vertical = 2.dp, horizontal = 4.dp),
+                fontSize = (tamanio * 0.5).sp,
+                color = MaterialTheme.colorScheme.onSecondary,
+                overflow = TextOverflow.Ellipsis,
+                maxLines = 1
+            )
+        }
+    }
+}
 
 @Composable
 fun ComponenteTarjetaClasificacion(

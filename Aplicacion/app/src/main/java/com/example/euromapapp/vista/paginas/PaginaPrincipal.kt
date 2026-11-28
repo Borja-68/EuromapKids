@@ -1,10 +1,12 @@
 package com.example.euromapapp.vista.paginas
 
+import TarjetaPrincipal
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -13,8 +15,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.euromapapp.R
 import com.example.euromapapp.componentes.ComponenteListaTarjetasVerticalTipos
 import com.example.euromapapp.componentes.DatosTituloCaja
+import com.example.euromapapp.viewModel.Uis.DatosTarjetaPrincipal
 import com.example.euromapapp.viewModel.vm.PaginaPrincipalVM
 
 val tipos: List<DatosTituloCaja> = listOf(DatosTituloCaja(titulo = "Politicos"),
@@ -43,12 +47,12 @@ fun PaginaPrincipal(
 
         ComponenteListaTarjetasVerticalTipos(
             tipos = uiState.tipos.map {
-                DatosTituloCaja(
-                    titulo = paginaPrincipalUi.obtenerString(
-                        nombre = "titulo_tipomapa_"+it.titulo.lowercase(),
-                        idioma = idioma
-                    ),
-                    accion = {onItemClick(it.titulo,0)}
+                TarjetaPrincipal(
+                    msjNombreTipo = paginaPrincipalUi.obtenerString("titulo_tipomapa_"+it.lowercase(), idioma),
+                    msjInferior = paginaPrincipalUi.obtenerString("submsj_tipo",idioma),
+                    accion = {onItemClick(it,0)},
+                    imagen = R.drawable.icono_mapa,
+                    colorImagen = MaterialTheme.colorScheme.tertiary
                 )
             },
             tamanioCaja = tamanioCajaPrincipal,

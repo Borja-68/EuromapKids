@@ -3,8 +3,11 @@ package com.example.euromapapp.componentes
 
 import ComponenteTarjetaClasificacion
 import ComponenteTarjetaHorizontalPersonal
+import ComponenteTarjetaHorizontalPrincipal
 import TarjetaClasificacion
+import TarjetaPrincipal
 import TarjetaResultadoPerfil
+import android.graphics.Color
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -31,7 +34,7 @@ import com.example.euromapapp.R
  */
 @Composable
 fun ComponenteListaTarjetasVerticalTipos(
-    tipos: List<DatosTituloCaja>,
+    tipos: List<TarjetaPrincipal>,
     tamanioCaja: Int = 250,
     tamanio: Int = 20
 ) {
@@ -49,7 +52,7 @@ fun ComponenteListaTarjetasVerticalTipos(
         )
         {
             items(tipos) { tipos ->
-                ComponenteTituloCaja(tipos)
+                ComponenteTarjetaHorizontalPrincipal(tipos)
             }
         }
     }
@@ -99,10 +102,6 @@ fun ComponenteListaTarjetasVerticalPerfil(
 ) {
 
     Box(
-        Modifier.background(
-            MaterialTheme.colorScheme.primary,
-            RoundedCornerShape(8.dp)
-        )
     ) {
 
         LazyColumn(
@@ -182,7 +181,7 @@ fun prevComponenteListaTarjetas() {
         DatosTituloCaja("str")
     )
     Column {
-    ComponenteListaTarjetasVerticalTipos(tipos);
+//    ComponenteListaTarjetasVerticalTipos(tipos);
         ComponenteListaTarjetasVerticalPerfil(tarjetas)
 //    ComponenteListaTarjetasHorizontal(tarjetas)
     }

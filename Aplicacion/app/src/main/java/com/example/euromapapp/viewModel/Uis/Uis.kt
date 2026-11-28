@@ -110,10 +110,7 @@ data class DatosPaginaCambioDatosUiState(
 )
 
 data class DatosPaginaPrincipalUiState(
-    var tipos: List<DatosTarjetaPrincipal> = listOf(DatosTarjetaPrincipal(titulo = "Politicos"),
-        DatosTarjetaPrincipal(titulo = "Politicos"),
-        DatosTarjetaPrincipal(titulo = "Rios"),
-        DatosTarjetaPrincipal(titulo = "Banderas"))
+    var tipos: List<String> = listOf("Politicos", "Rios")
 )
 
 data class DatosTarjetaPrincipal(

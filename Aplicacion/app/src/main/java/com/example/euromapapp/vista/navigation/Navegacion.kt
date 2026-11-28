@@ -125,6 +125,7 @@ fun EuromapNavGraph(navController: NavHostController, viewMain: MainViewModel) {
 
             if(!viewMain.getLogueado()) {
                 PaginaInicioSesion(
+                    idioma = viewMain.getIdioma(),
                     onItemClick = { navController.navigate("principal") },
                     onSignUpClick = { navController.navigate("sign") }
                 )

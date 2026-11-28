@@ -66,7 +66,7 @@ fun PaginaSeleccionNivel(
 
         ) {
             ComponenteImagenMapaSeleccion(
-                datos = DatosComponenteImagenMapaSeleccion(
+                    datos = DatosComponenteImagenMapaSeleccion(
                     modifier = Modifier,
                     id = uiState.mapas.get(posicionMapa).imagenMapa,
                     nombre = uiState.nombreMapa,

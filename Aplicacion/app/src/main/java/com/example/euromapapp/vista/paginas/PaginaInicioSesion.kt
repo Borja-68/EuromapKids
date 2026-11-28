@@ -30,6 +30,7 @@ import com.example.euromapapp.viewModel.vm.PaginaInicioSesionVM
  */
 @Composable
 fun PaginaInicioSesion(
+    idioma: String="es",
     paginaLoginUi : PaginaInicioSesionVM = viewModel(),
     onItemClick: () -> Unit={},
     onSignUpClick:()->Unit={},
@@ -51,20 +52,22 @@ fun PaginaInicioSesion(
             {
                 ComponenteTituloSinFondo(
                     titulo = stringResource(R.string.app_name),
-                    tamanio = 40
+                    tamanio = 40,
+                    color = MaterialTheme.colorScheme.primary
                 )
 
                 ComponenteTituloSinFondo(
                     titulo = paginaLoginUi.obtenerString(
                         "submensaje_app_name",
-                        "es"
-                    )
+                        idioma = idioma
+                    ),
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
             }
             Column(verticalArrangement = Arrangement.spacedBy(space = 35.dp)) {
                 ComponenteTextField(
                     DatosTextField(
-                        msjPregunta = paginaLoginUi.obtenerString("mensaje_usuario_log_in","es"),
+                        msjPregunta = paginaLoginUi.obtenerString("mensaje_usuario_log_in",idioma),
                         listaColor = listOf(
                             MaterialTheme.colorScheme.background,
                             MaterialTheme.colorScheme.onBackground,
@@ -79,7 +82,7 @@ fun PaginaInicioSesion(
                 )
                 ComponenteTextFieldContrasena(
                     DatosTextField(
-                        msjPregunta = paginaLoginUi.obtenerString("mensaje_contrasena_usuario","es"),
+                        msjPregunta = paginaLoginUi.obtenerString("mensaje_contrasena_usuario",idioma),
                         listaColor = listOf(
                             MaterialTheme.colorScheme.background,
                             MaterialTheme.colorScheme.onBackground,
@@ -101,8 +104,8 @@ fun PaginaInicioSesion(
             ) {
                 BotonesDobleAceptarColumna(
                     DatosBotonDoble(
-                        msjBot1 = paginaLoginUi.obtenerString("app_login","es"),
-                        msjBot2 = paginaLoginUi.obtenerString("app_sign_up","es"),
+                        msjBot1 = paginaLoginUi.obtenerString("app_login",idioma),
+                        msjBot2 = paginaLoginUi.obtenerString("app_sign_up",idioma),
                         modifierBotones = Modifier.fillMaxWidth(),
                         accionBoton1 = onItemClick,
                         accionBoton2 = onSignUpClick

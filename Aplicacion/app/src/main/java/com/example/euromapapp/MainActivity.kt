@@ -65,7 +65,10 @@ class MainActivity : ComponentActivity() {
                         }
 
                     }) { innerPadding ->
-                    Box(Modifier.fillMaxSize().padding(innerPadding)) {
+                    Box(Modifier
+                        .background(color = MaterialTheme.colorScheme.background)
+                        .fillMaxSize()
+                        .padding(innerPadding)) {
                         EuromapNavGraph(navController = navController, viewMain = viewMain)
                     }
                 }
